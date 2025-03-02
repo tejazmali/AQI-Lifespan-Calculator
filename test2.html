@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Heaven - Image with Fade In Heading</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+    
+    .banner {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #00000055;
+    }
+    
+    /* Background image styling */
+    #bg-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      z-index: -1;
+      filter: invert();
+      
+    }
+    
+    h2 {
+      color: #fff;
+      font-size: 5rem;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      z-index: 1;
+      margin-bottom: 300px;
+    }
+    
+    .clouds {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    .clouds img {
+      position: absolute;
+      bottom: 0;
+      margin-top: 500px;
+      max-width: 100%;
+      filter: hue-rotate(180deg) brightness(80%);
+      animation: animate calc(2s * var(--i)) linear infinite;
+    }
+    
+    @keyframes animate {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      25%, 75% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(3);
+      }
+    }
+    
+    section {
+      padding: 20px 40px;
+    }
+    
+    section h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    
+    @media screen and (max-width: 1000px) {
+      h2 {
+        font-size: 8rem;
+      }
+      section h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media screen and (max-width: 800px) {
+      h2 {
+        font-size: 6rem;
+      }
+      section h1 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <!-- Changed from video to image -->
+    <img id="bg-image" src="/abstract-silhouette-industrial-factory-illustration-manufacturing-building-flat-design-polluting-factory-concept-free-vector.jpg" alt="Background image">
+    <h2>Air Quality Smoke Calculator</h2>
+    <div class="clouds">
+      <img src="https://i.postimg.cc/PrMrJc9d/cloud1.png" style="--i:1">
+      <img src="https://i.postimg.cc/fRTW9CQm/cloud2.png" style="--i:2">
+      <img src="https://i.postimg.cc/sg6j9W38/cloud3.png" style="--i:3">
+      <img src="https://i.postimg.cc/LsGmGMY3/cloud4.png" style="--i:4">
+      <img src="https://i.postimg.cc/jjDs8j5j/cloud5.png" style="--i:5">
+      <img src="https://i.postimg.cc/PrMrJc9d/cloud1.png" style="--i:6">
+      <img src="https://i.postimg.cc/fRTW9CQm/cloud2.png" style="--i:7">
+      <img src="https://i.postimg.cc/sg6j9W38/cloud3.png" style="--i:8">
+      <img src="https://i.postimg.cc/LsGmGMY3/cloud4.png" style="--i:9">
+      <img src="https://i.postimg.cc/jjDs8j5j/cloud5.png" style="--i:10">
+    </div>
+  </div>
+  
+  <section>
+    <h1>Custom Parallax Effects</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex soluta adipisci voluptatum laborum cum
+      consequuntur explicabo nam aliquam quia in eius rerum cupiditate esse blanditiis accusantium vitae totam
+      consectetur quisquam, corrupti harum quod. Omnis eos consectetur ex modi praesentium autem dicta illum
+      architecto possimus veniam. Distinctio, ullam! Nemo, rerum libero! Id ea aliquid nulla? Doloremque illo nam
+      mollitia culpa dolore libero facilis error sapiente dolorem doloribus voluptatem corrupti reprehenderit
+      aspernatur, ipsam optio! Exercitationem assumenda nihil quaerat magnam magni, sint architecto
+      officiis<br><br>
+      Provident obcaecati nulla totam suscipit omnis eos veritatis dolores doloremque deserunt fugit saepe
+      possimus perspiciatis est esse? Culpa maxime ex necessitatibus! Blanditiis perferendis dolor, laudantium
+      expedita optio sunt culpa, cumque iusto nulla exercitationem rerum placeat in doloribus quas deleniti ex.
+      Tenetur ratione consequuntur natus iusto voluptas doloremque quae tempora neque recusandae, facilis eius
+      itaque adipisci repellendus at ducimus incidunt corporis dolore nam veritatis ab unde cumque. Illo autem
+      ducimus alias, facere suscipit dolores doloribus quidem nulla placeat, excepturi esse voluptatem a accusamus
+      ad dolore accusantium atque animi optio quam? Dolores, laboriosam suscipit velit obcaecati ab molestiae
+      nesciunt ipsam? Voluptatum a architecto perspiciatis cupiditate. Suscipit soluta repudiandae quidem unde
+      accusantium deserunt dignissimos maiores cum natus. Blanditiis error dolore quidem culpa itaque consequuntur
+      atque, tempore eveniet nulla explicabo voluptatem sed officia laudantium consectetur quia neque molestiae
+      aspernatur temporibus quaerat? <br><br>
+      Voluptas modi commodi laboriosam eum ad eius ea libero vitae! Soluta maxime
+      deleniti ipsam laudantium hic quidem molestiae magnam voluptate, tempora autem earum ad reiciendis rem eos
+      optio quam ipsum consequatur dolorem unde commodi? Eius, ut temporibus nihil minus aperiam facilis corporis
+      in nesciunt nemo magnam a veniam. Architecto qui recusandae dolorum cum sunt. Amet quos, id delectus aut ad
+      dolorum explicabo molestias corporis saepe iure aliquid, soluta, veniam pariatur voluptates totam libero
+      vero? Eos eius accusamus impedit maiores culpa ex nobis?
+    </p>
+  </section>
+  
+  <script>
+    const bgImage = document.getElementById('bg-image');
+    const heading = document.querySelector('.banner h2');
+
+    // Listen for the image "load" event to trigger the heading fade-in
+    bgImage.addEventListener('load', () => {
+      heading.style.opacity = "1";
+    });
+
+    // Fallback: if the image takes too long to load, show the heading after 5 seconds
+    setTimeout(() => {
+      if (heading.style.opacity === "0") {
+        heading.style.opacity = "1";
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
