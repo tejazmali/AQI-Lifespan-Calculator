@@ -23,8 +23,7 @@
       align-items: center;
       background: #00000055;
     }
-    
-    /* Background image styling */
+
     #bg-image {
       position: absolute;
       top: 50%;
@@ -112,7 +111,7 @@
 </head>
 <body>
   <div class="banner">
-    <!-- Changed from video to image -->
+ 
     <img id="bg-image" src="/abstract-silhouette-industrial-factory-illustration-manufacturing-building-flat-design-polluting-factory-concept-free-vector.jpg" alt="Background image">
     <h2>Air Quality Smoke Calculator</h2>
     <div class="clouds">
@@ -163,12 +162,13 @@
     const bgImage = document.getElementById('bg-image');
     const heading = document.querySelector('.banner h2');
 
-    // Listen for the image "load" event to trigger the heading fade-in
     bgImage.addEventListener('load', () => {
       heading.style.opacity = "1";
+
+
     });
 
-    // Fallback: if the image takes too long to load, show the heading after 5 seconds
+    
     setTimeout(() => {
       if (heading.style.opacity === "0") {
         heading.style.opacity = "1";

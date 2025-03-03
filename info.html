@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Air Pollution Data</title>
+  <style>
+ 
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f6f9fc, #e9eff5);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      max-width: 600px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .data {
+      font-family: 'Courier New', Courier, monospace;
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: left;
+      white-space: pre-wrap;
+      margin-top: 20px;
+    }
+    .error {
+      color: #d8000c;
+      background: #ffbaba;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Air Pollution Data</h1>
+    <select id="stateSelect">
+      <option value="">Select a State</option>
+     
+      <option value="16.5417,80.5158">Andhra Pradesh (Amaravati)</option>
+      <option value="27.0844,93.6053">Arunachal Pradesh (Itanagar)</option>
+      <option value="26.1433,91.7898">Assam (Dispur)</option>
+      <option value="25.5941,85.1376">Bihar (Patna)</option>
+      <option value="21.2514,81.6296">Chhattisgarh (Raipur)</option>
+      <option value="15.4909,73.8278">Goa (Panaji)</option>
+      <option value="23.2156,72.6369">Gujarat (Gandhinagar)</option>
+      <option value="30.7333,76.7794">Haryana (Chandigarh)</option>
+      <option value="31.1048,77.1734">Himachal Pradesh (Shimla)</option>
+      <option value="23.3441,85.3096">Jharkhand (Ranchi)</option>
+      <option value="12.9716,77.5946">Karnataka (Bengaluru)</option>
+      <option value="8.5241,76.9366">Kerala (Thiruvananthapuram)</option>
+      <option value="23.2599,77.4126">Madhya Pradesh (Bhopal)</option>
+      <option value="19.0760,72.8777">Maharashtra (Mumbai)</option>
+      <option value="24.8170,93.9368">Manipur (Imphal)</option>
+      <option value="25.5788,91.8933">Meghalaya (Shillong)</option>
+      <option value="23.7271,92.7176">Mizoram (Aizawl)</option>
+      <option value="25.6700,94.1100">Nagaland (Kohima)</option>
+      <option value="20.2961,85.8245">Odisha (Bhubaneswar)</option>
+      <option value="30.7333,76.7794">Punjab (Chandigarh)</option>
+      <option value="26.9124,75.7873">Rajasthan (Jaipur)</option>
+      <option value="27.3389,88.6065">Sikkim (Gangtok)</option>
+      <option value="13.0827,80.2707">Tamil Nadu (Chennai)</option>
+      <option value="17.3850,78.4867">Telangana (Hyderabad)</option>
+      <option value="23.8315,91.2868">Tripura (Agartala)</option>
+      <option value="26.8467,80.9462">Uttar Pradesh (Lucknow)</option>
+      <option value="30.3165,78.0322">Uttarakhand (Dehradun)</option>
+      <option value="22.5726,88.3639">West Bengal (Kolkata)</option>
+    </select>
+    <button id="fetchBtn">Fetch AQI Data</button>
+    <div id="result" class="data"></div>
+  </div>
+
+  <script>
+    const fetchBtn = document.getElementById('fetchBtn');
+    const stateSelect = document.getElementById('stateSelect');
+    const resultDiv = document.getElementById('result');
+    const apiKey = '6c07e32e91538d3ad6491ccda66aac57'; // Replace with your API key
+
+    fetchBtn.addEventListener('click', () => {
+      const selectedValue = stateSelect.value;
+      if (!selectedValue) {
+        resultDiv.innerHTML = `<p class="error">Please select a state first.</p>`;
+        return;
+      }
+
+      const [lat, lon] = selectedValue.split(',');
+      const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+
+          let output = JSON.stringify(data, null, 2);
+          
+          
+          const comp = data.list[0].components;
+          
+          // PM2.5 Calculation (µg/m³)
+          const pm25 = comp.pm2_5;
+          let aqi_pm25 = 0;
+          if (pm25 <= 12.0) {
+            aqi_pm25 = (50 / 12.0) * pm25;
+          } else if (pm25 <= 35.4) {
+            aqi_pm25 = ((100 - 51) / (35.4 - 12.1)) * (pm25 - 12.1) + 51;
+          } else if (pm25 <= 55.4) {
+            aqi_pm25 = ((150 - 101) / (55.4 - 35.5)) * (pm25 - 35.5) + 101;
+          } else if (pm25 <= 150.4) {
+            aqi_pm25 = ((200 - 151) / (150.4 - 55.5)) * (pm25 - 55.5) + 151;
+          } else if (pm25 <= 250.4) {
+            aqi_pm25 = ((300 - 201) / (250.4 - 150.5)) * (pm25 - 150.5) + 201;
+          } else {
+            aqi_pm25 = pm25; // Simplified for very high values
+          }
+          
+          // PM10 Calculation (µg/m³)
+          const pm10 = comp.pm10;
+          let aqi_pm10 = 0;
+          if (pm10 <= 54) {
+            aqi_pm10 = (50 / 54) * pm10;
+          } else if (pm10 <= 154) {
+            aqi_pm10 = ((100 - 51) / (154 - 55)) * (pm10 - 55) + 51;
+          } else if (pm10 <= 254) {
+            aqi_pm10 = ((150 - 101) / (254 - 155)) * (pm10 - 155) + 101;
+          } else if (pm10 <= 354) {
+            aqi_pm10 = ((200 - 151) / (354 - 255)) * (pm10 - 255) + 151;
+          } else {
+            aqi_pm10 = pm10; // Simplified for very high values
+          }
+          
+          // For this example, we assume PM2.5 and PM10 dominate.
+          const overallAQI = Math.round(Math.max(aqi_pm25, aqi_pm10));
+          
+          // Append the calculated AQI to the displayed output
+          output += "\n\nCalculated Overall AQI: " + overallAQI;
+          resultDiv.textContent = output;
+        })
+        .catch(error => {
+          resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+        });
+    });
+  </script>
+</body>
+</html>
