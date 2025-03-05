@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Airtox</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,300" rel="stylesheet">
+  <style>
+
+  /* Global Dark Theme */
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #030712; /* Very dark background */
+    color: #FAFAFA;           /* Light text */
+    font-family: "Inter", sans-serif;
+  }
+
+  /* Container for the map and title */
+  .map-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto 0 auto; /* 30px top margin added */
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+
+  .map-container h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+  .map-container p {
+    font-size: 14px;
+    color: #aaaaaa;
+    margin-bottom: 20px;
+  }
+
+  /* Map div styling */
+  #indian-map {
+    width: 100%;
+    height: 600px;
+    background: #1e1e1e; /* Dark background behind the map */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    position: relative;
+  }
+</style>
+
+
+</head>
+<body>
+<div id="header"></div>
+  <!-- Map Container + Title -->
+  <div class="map-container">
+    <h3>Select a State</h3>
+    <p>Click on any state in the map to view air pollution data.</p>
+    <div id="indian-map">Loading map...</div>
+  </div>
+
+  <!-- FusionCharts Scripts -->
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.maps.js"></script>
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.india.js"></script>
+
+  <script>
+    // Mapping from state names to coordinates
+    const stateCoordinates = {
+      "Andhra Pradesh": "16.5417,80.5158",
+      "Arunachal Pradesh": "27.0844,93.6053",
+      "Assam": "26.1433,91.7898",
+      "Bihar": "25.5941,85.1376",
+      "Chhattisgarh": "21.2514,81.6296",
+      "Goa": "15.4909,73.8278",
+      "Gujarat": "23.2156,72.6369",
+      "Haryana": "30.7333,76.7794",
+      "Himachal Pradesh": "31.1048,77.1734",
+      "Jharkhand": "23.3441,85.3096",
+      "Karnataka": "12.9716,77.5946",
+      "Kerala": "8.5241,76.9366",
+      "Madhya Pradesh": "23.2599,77.4126",
+      "Maharashtra": "19.0760,72.8777",
+      "Manipur": "24.8170,93.9368",
+      "Meghalaya": "25.5788,91.8933",
+      "Mizoram": "23.7271,92.7176",
+      "Nagaland": "25.6700,94.1100",
+      "Odisha": "20.2961,85.8245",
+      "Punjab": "30.7333,76.7794",
+      "Rajasthan": "26.9124,75.7873",
+      "Sikkim": "27.3389,88.6065",
+      "Tamil Nadu": "13.0827,80.2707",
+      "Telangana": "17.3850,78.4867",
+      "Tripura": "23.8315,91.2868",
+      "Uttar Pradesh": "26.8467,80.9462",
+      "Uttarakhand": "30.3165,78.0322",
+      "West Bengal": "22.5726,88.3639"
+    };
+
+    FusionCharts.ready(function() {
+      var indiaMap = new FusionCharts({
+        type: "maps/india",
+        renderAt: "indian-map",
+        width: "100%",
+        height: "100%",
+        dataFormat: "json",
+        dataSource: {
+          "chart": {
+            "bgColor": "#121212",
+            "canvasBgColor": "#121212",
+            "borderColor": "#2f2f2f",
+            "entityFillColor": "#888888",
+            "entityBorderColor": "#222222",
+            "entityFillHoverColor": "#aaaaaa",
+            "caption": "",
+            "subcaption": "",
+            "showLegend": "0",
+            "showLabels": "0",
+            "showBorder": "0",
+            "showCanvasBorder": "0",
+            "legendBorderAlpha": "0",
+            "nullEntityColor": "#888888"
+          },
+          "colorrange": {
+            "minvalue": "0",
+            "code": "#ffffff",
+            "gradient": "0"
+          },
+          "data": [] 
+        },
+        events: {
+          "entityClick": function(evtObj, dataObj) {
+            const stateName = dataObj.label;
+            // If we have coordinates, pass them to the next page
+            if (stateCoordinates[stateName]) {
+              const coords = stateCoordinates[stateName].split(',');
+              const lat = coords[0];
+              const lon = coords[1];
+
+              // Redirect to details page with query parameters
+              window.location.href = `details.html?state=${encodeURIComponent(stateName)}&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`;
+            } else {
+              alert("Coordinates not found for " + stateName);
+            }
+          }
+        }
+      }).render();
+    });
+  </script>
+  <script src="/new start/script.js"></script>
+</body>
+</html>

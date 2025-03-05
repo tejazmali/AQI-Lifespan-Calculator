@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Air Quality Results</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Header styles */
+    .header {
+      background-color: rgba(17, 24, 39, 0.85);
+      border-bottom: 1px solid #202c47d7;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+
+
+      
+    }
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title {
+        color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+    text-align: start;
+    margin-top: 15px;
+    }
+    .info {
+      margin-right: 10px;
+      color: #bebebe;
+      cursor: pointer;
+    }
+    .info:hover {
+      color: #fff;
+    }
+    
+    /* Body and content styles */
+    body {
+      margin: 0;
+      padding: 70px 0 0 0; /* Padding top to prevent content from hiding under the fixed header */
+      background-color: #030712; 
+      color: #FAFAFA; 
+      font-family: "Inter", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .container-result {
+      max-width: 800px;
+      width: 100%;
+      padding: 20px;
+      margin-top: 40px;
+      background-color: #1f1f1f;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 28px;
+      text-align: center;
+    }
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .summary-item {
+      background-color: #2a2a2a;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+      flex: 1 1 200px;
+      min-width: 180px;
+    }
+    .summary-item h2 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+    }
+    .summary-item p {
+      margin: 0;
+      font-size: 16px;
+      color: #cccccc;
+    }
+    .details {
+      margin-top: 30px;
+    }
+    .details h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+    .detail-item {
+      background-color: #2a2a2a;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+    .detail-item span {
+      display: block;
+      font-size: 14px;
+      color: #cccccc;
+    }
+    /* Chart container */
+    .chart-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="title">
+        <h1>Airtox</h1>
+      </div>
+      <span class="material-symbols-outlined info">info</span>
+    </div>
+  </header>
+
+  <div class="container-result">
+    <h1 id="stateHeading">Air Quality in ...</h1>
+    <!-- High-level summary boxes -->
+    <div class="summary">
+      <div class="summary-item">
+        <h2>AQI</h2>
+        <p id="aqiValue"></p>
+        <p id="aqiStatus"></p>
+      </div>
+      <div class="summary-item">
+        <h2>Cigarette Equivalent</h2>
+        <p><span id="cigsPerDay"></span> cigarettes/day</p>
+        <p><span id="cigsPerYear"></span> cigarettes/year</p>
+      </div>
+      <div class="summary-item">
+        <h2>Health Impact</h2>
+        <p><span id="daysLost"></span> days lost</p>
+        <p><span id="yearsLost"></span> years reduction</p>
+      </div>
+    </div>
+
+    <!-- Pollutant bar chart -->
+    <div class="chart-container">
+      <canvas id="pollutantChart"></canvas>
+    </div>
+
+    <!-- Detailed analysis -->
+    <div class="details">
+      <h2>Detailed Analysis</h2>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span>PM2.5</span>
+          <span id="pm25Val"></span>
+        </div>
+        <div class="detail-item">
+          <span>PM10</span>
+          <span id="pm10Val"></span>
+        </div>
+        <div class="detail-item">
+          <span>NO2</span>
+          <span id="no2Val"></span>
+        </div>
+        <div class="detail-item">
+          <span>SO2</span>
+          <span id="so2Val"></span>
+        </div>
+        <div class="detail-item">
+          <span>O3</span>
+          <span id="o3Val"></span>
+        </div>
+        <div class="detail-item">
+          <span>CO</span>
+          <span id="coVal"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Parse JSON from query parameter "data"
+    const urlParams = new URLSearchParams(window.location.search);
+    const dataParam = urlParams.get('data');
+
+    if (!dataParam) {
+      document.body.innerHTML = "<h1 style='color:red;text-align:center;'>No data found in query string!</h1>";
+    } else {
+      // 2. Decode and parse
+      const results = JSON.parse(decodeURIComponent(dataParam));
+
+      // 3. Fill in the UI
+      document.getElementById('stateHeading').innerText = `Air Quality in ${results.stateName}`;
+      document.getElementById('aqiValue').innerText = results.aqi;
+      document.getElementById('aqiStatus').innerText = results.aqiStatus;
+      document.getElementById('cigsPerDay').innerText = results.cigsPerDay;
+      document.getElementById('cigsPerYear').innerText = results.cigsPerYear;
+      document.getElementById('daysLost').innerText = results.daysLost;
+      document.getElementById('yearsLost').innerText = results.yearsLost;
+      document.getElementById('pm25Val').innerText = results.pm25.toFixed(2) + " µg/m³";
+      document.getElementById('pm10Val').innerText = results.pm10.toFixed(2) + " µg/m³";
+      document.getElementById('no2Val').innerText  = results.no2.toFixed(2)  + " µg/m³";
+      document.getElementById('so2Val').innerText  = results.so2.toFixed(2)  + " µg/m³";
+      document.getElementById('o3Val').innerText   = results.o3.toFixed(2)   + " µg/m³";
+      document.getElementById('coVal').innerText   = results.co.toFixed(2)   + " µg/m³";
+
+      // 4. Create a bar chart for pollutant levels
+      const ctx = document.getElementById('pollutantChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['PM2.5', 'PM10', 'NO2', 'SO2', 'O3', 'CO'],
+          datasets: [{
+            label: 'µg/m³',
+            data: [
+              results.pm25,
+              results.pm10,
+              results.no2,
+              results.so2,
+              results.o3,
+              results.co
+            ],
+            backgroundColor: [
+              '#f44336', // PM2.5
+              '#ff9800', // PM10
+              '#ffeb3b', // NO2
+              '#2196f3', // SO2
+              '#4caf50', // O3
+              '#9c27b0'  // CO
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: '#ccc'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#ccc'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#ccc'
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
