@@ -36,19 +36,24 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
       text-align: center;
       margin-top: 100px;
+      /* Optionally animate the container as well */
+      animation: fadeSlideIn 1s ease-out;
     }
 
+    /* Animate heading text */
     .container-details h1 {
       margin-top: 0;
-      font-weight: 400;
       font-size: 24px;
       color: #ffffff;
+      animation: fadeSlideIn 1s ease-out;
     }
 
     .container-details p {
       color: #aaaaaa;
       font-size: 14px;
       margin-bottom: 30px;
+      /* Optionally animate paragraph with a slight delay */
+      animation: fadeSlideIn 1.2s ease-out;
     }
 
     /* Input styles */
@@ -62,6 +67,7 @@
       margin-bottom: 6px;
       font-size: 14px;
       color: #f0f0f0;
+      font-weight: 600;
     }
 
     .input-group input {
@@ -92,12 +98,25 @@
     button:hover {
       background: #cbcbcb;
     }
+
+    /* Keyframes for fade and slide animation */
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
   
   <div id="header"></div>
   <!-- Google Material Icon for Arrow Back (Positioned to the left) -->
+  <i class="material-icons back-icon" onclick="window.history.back()">arrow_back</i>
 
   <div class="container-details">
     <h1 id="stateHeading">Selected State</h1>
@@ -105,16 +124,17 @@
     
     <div class="input-group">
       <label for="ageInput">Your Age</label>
-      <input type="number" id="ageInput" placeholder="e.g. 39" min="0" step="1">
+      <input type="number" id="ageInput" placeholder="Enter your age in years" min="0" step="1">
     </div>
     
     <div class="input-group">
       <label for="yearsLived">Years Living in the City</label>
-      <input type="number" id="yearsLived" placeholder="e.g. 10" min="0" step="1">
+      <input type="number" id="yearsLived" placeholder="Enter no. of year in city" min="0" step="1">
     </div>
 
     <button id="calculateBtn">Calculate Impact</button>
   </div>
+  <div id="footer"></div>
 
   <script>
     // Get query params for state name & coordinates from index.html (if applicable)
@@ -202,7 +222,6 @@
           const cigsPerYear = Math.round(cigsPerDay * 365);
 
           // Lifespan Reduction
-          // Example approach:
           let RR = pm25 > 10 ? 1 + 0.06 * (pm25 - 10) : 1;
           let AF = RR > 1 ? (RR - 1) / RR : 0;
           let RLE = age < 80 ? 80 - age : Math.max(85 - age, 0);

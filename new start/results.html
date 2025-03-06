@@ -9,6 +9,24 @@
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    /* Keyframe animation for fade in and slide up */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Apply animation to content */
+    .animate {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0; /* Start invisible, then animate to visible */
+    }
+
     /* Header styles */
     .header {
       background-color: rgba(17, 24, 39, 0.85);
@@ -18,9 +36,9 @@
       width: 100%;
       z-index: 1000;
       backdrop-filter: blur(10px);
-
-
-      
+    }
+    .header a {
+      text-decoration: none;
     }
     .container {
       width: 90%;
@@ -30,12 +48,12 @@
       align-items: center;
     }
     .title {
-        color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 10px;
-    text-align: start;
-    margin-top: 15px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 10px;
+      text-align: start;
+      margin-top: 15px;
     }
     .info {
       margin-right: 10px;
@@ -45,7 +63,7 @@
     .info:hover {
       color: #fff;
     }
-    
+
     /* Body and content styles */
     body {
       margin: 0;
@@ -67,6 +85,7 @@
       background-color: #1f1f1f;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      animation-delay: 0.2s;
     }
     h1 {
       margin-top: 0;
@@ -87,6 +106,7 @@
       text-align: center;
       flex: 1 1 200px;
       min-width: 180px;
+      animation-delay: 0.4s;
     }
     .summary-item h2 {
       margin: 0 0 10px 0;
@@ -99,6 +119,7 @@
     }
     .details {
       margin-top: 30px;
+      animation-delay: 0.6s;
     }
     .details h2 {
       font-size: 22px;
@@ -122,73 +143,188 @@
     }
     /* Chart container */
     .chart-container {
+      background-color: #2a2a2a;
+      border-radius: 6px;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+      margin-top: -15px;
+      width: 60%;
+    }
+    .chart-container h2 {
+      font-size: 20px;
+      margin-top: -5px;
+    }
+    /* Footer styles */
+    footer {
+      background-color: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      position: relative;
+      bottom: 0;
       width: 100%;
-      max-width: 600px;
+      margin-top: 176px;
+      border-top: 1px solid #202c47d7;
+    }
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+    /* AQI Circle Styles */
+    .aqi-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: #999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-align: center;
       margin: 0 auto;
+      animation: bump 3s infinite;
+    }
+    @keyframes bump {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.07); }
+      100% { transform: scale(1); }
+    }
+    .aqi-value {
+      font-size: 3em;
+      font-weight: bold;
+      margin: 0;
+    }
+    .aqi-status {
+      font-size: 18px;
+      margin-top: 25px;
+      font-weight: 500;
+    }
+    #cigsPerDay {
+      color:#ff8c00;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    #para-1 {
+      color: #FAFAFA;
+    }
+    #para-2 {
+      font-size: 13.7px;
+      margin-top: 3px;
+    }
+    #daysLost {
+      color: rgb(234, 7, 7);
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .heath-impact {
+      background-color: #2a2a2a;
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: -20px;
+      text-align: center;
+      height: 280px;
+      width: 35%;
+    }
+    .heath-impact h2 {
+      font-size: 19px;
+    }
+    .heath-impact img {
+      width: 200px;
+      height: 200px;
+    }
+    .summary-2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      animation-delay: 0.8s;
+    }
+    #cigarette {
+      margin-top: -50px;
+      margin-left: 50px;
     }
   </style>
 </head>
-<body>
+<body id="result-page">
   <header class="header">
     <div class="container">
-      <div class="title">
-        <h1>Airtox</h1>
-      </div>
-      <span class="material-symbols-outlined info">info</span>
+      <a href="/new start/index.html">
+        <div class="title animate">
+          <h1>Airtox</h1>
+        </div>
+      </a>
+      <span class="material-symbols-outlined info animate">info</span>
     </div>
   </header>
 
-  <div class="container-result">
+  <div class="container-result animate">
     <h1 id="stateHeading">Air Quality in ...</h1>
     <!-- High-level summary boxes -->
     <div class="summary">
-      <div class="summary-item">
+      <!-- AQI Circle Summary -->
+      <div class="summary-item animate">
         <h2>AQI</h2>
-        <p id="aqiValue"></p>
-        <p id="aqiStatus"></p>
+        <!-- AQI Circle -->
+        <div class="aqi-circle" id="aqiCircle">
+          <div class="aqi-value" id="aqiValue">--</div>
+        </div>
+        <div class="aqi-status" id="aqiStatus">Loading...</div>
       </div>
-      <div class="summary-item">
+      <div class="summary-item animate">
         <h2>Cigarette Equivalent</h2>
-        <p><span id="cigsPerDay"></span> cigarettes/day</p>
-        <p><span id="cigsPerYear"></span> cigarettes/year</p>
-      </div>
-      <div class="summary-item">
-        <h2>Health Impact</h2>
-        <p><span id="daysLost"></span> days lost</p>
-        <p><span id="yearsLost"></span> years reduction</p>
+        <div id="cigarette">
+          <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+          <dotlottie-player src="https://lottie.host/284dd940-d75a-417c-9dfe-4408ee36dcd7/JBYXzei0cx.lottie" background="transparent" speed="1" style="width: 200px; height:200px" direction="1" playMode="forward" loop autoplay></dotlottie-player>
+        </div>
+        <p id="para-1"><span id="cigsPerDay"></span> cigarettes per day</p>
+        <p id="para-2">(<span id="cigsPerYear"></span> cigarettes per year)</p>
       </div>
     </div>
 
-    <!-- Pollutant bar chart -->
-    <div class="chart-container">
-      <canvas id="pollutantChart"></canvas>
+    <div class="summary-2 animate">
+      <!-- Pollutant bar chart -->
+      <div class="chart-container">
+        <h2>Pollutant Levels</h2>
+        <canvas id="pollutantChart"></canvas>
+      </div>
+      <div class="summary-item heath-impact animate">
+        <h2>Health Impact</h2>
+        <img src="/new start/aqi-poor-level.svg" alt="">
+        <p id="para-1"><span id="daysLost"></span> days of life lost</p>
+        <p id="para-2">(<span id="yearsLost"></span> years reduction)</p>
+      </div>
     </div>
 
     <!-- Detailed analysis -->
-    <div class="details">
+    <div class="details animate">
       <h2>Detailed Analysis</h2>
       <div class="detail-grid">
-        <div class="detail-item">
+        <div class="detail-item animate">
           <span>PM2.5</span>
           <span id="pm25Val"></span>
         </div>
-        <div class="detail-item">
+        <div class="detail-item animate">
           <span>PM10</span>
           <span id="pm10Val"></span>
         </div>
-        <div class="detail-item">
+        <div class="detail-item animate">
           <span>NO2</span>
           <span id="no2Val"></span>
         </div>
-        <div class="detail-item">
+        <div class="detail-item animate">
           <span>SO2</span>
           <span id="so2Val"></span>
         </div>
-        <div class="detail-item">
+        <div class="detail-item animate">
           <span>O3</span>
           <span id="o3Val"></span>
         </div>
-        <div class="detail-item">
+        <div class="detail-item animate">
           <span>CO</span>
           <span id="coVal"></span>
         </div>
@@ -196,7 +332,23 @@
     </div>
   </div>
 
+  <!-- Footer Section -->
+  <footer class="animate">
+    <p>Design by Tejas Mali ❤️</p>
+  </footer>
+
   <script>
+    // Wait for the DOM to load then add the animate class to each element
+    document.addEventListener("DOMContentLoaded", function() {
+      // Query all elements with the 'animate' class
+      const animatedElements = document.querySelectorAll('.animate');
+      animatedElements.forEach((el, index) => {
+        // Optional: Stagger the animations with incremental delays
+        el.style.animationDelay = `${index * 0.1}s`;
+        el.style.opacity = 1;
+      });
+    });
+
     // 1. Parse JSON from query parameter "data"
     const urlParams = new URLSearchParams(window.location.search);
     const dataParam = urlParams.get('data');
@@ -209,12 +361,50 @@
 
       // 3. Fill in the UI
       document.getElementById('stateHeading').innerText = `Air Quality in ${results.stateName}`;
-      document.getElementById('aqiValue').innerText = results.aqi;
-      document.getElementById('aqiStatus').innerText = results.aqiStatus;
+
+      // AQI circle text
+      const aqiValueEl = document.getElementById('aqiValue');
+      const aqiStatusEl = document.getElementById('aqiStatus');
+      const aqiCircleEl = document.getElementById('aqiCircle');
+
+      aqiValueEl.textContent = results.aqi; // numeric value
+
+      // Determine status and color based on AQI
+      let colorCode = '';
+      let statusText = '';
+      const aqi = results.aqi;
+      if (aqi <= 50) {
+        statusText = 'Good';
+        colorCode = '#2ecc71';
+      } else if (aqi <= 100) {
+        statusText = 'Moderate';
+        colorCode = '#f1c40f';
+      } else if (aqi <= 150) {
+        statusText = 'Unhealthy (SG)';
+        colorCode = '#e67e22';
+      } else if (aqi <= 200) {
+        statusText = 'Unhealthy';
+        colorCode = '#e74c3c';
+      } else if (aqi <= 300) {
+        statusText = 'Very Unhealthy';
+        colorCode = '#9b59b6';
+      } else {
+        statusText = 'Hazardous';
+        colorCode = '#7f1d1d';
+      }
+
+      aqiStatusEl.textContent = statusText;
+      aqiCircleEl.style.backgroundColor = colorCode;
+
+      // Cigarette equivalent
       document.getElementById('cigsPerDay').innerText = results.cigsPerDay;
       document.getElementById('cigsPerYear').innerText = results.cigsPerYear;
+
+      // Health impact
       document.getElementById('daysLost').innerText = results.daysLost;
       document.getElementById('yearsLost').innerText = results.yearsLost;
+
+      // Detailed pollutant values
       document.getElementById('pm25Val').innerText = results.pm25.toFixed(2) + " µg/m³";
       document.getElementById('pm10Val').innerText = results.pm10.toFixed(2) + " µg/m³";
       document.getElementById('no2Val').innerText  = results.no2.toFixed(2)  + " µg/m³";
@@ -239,12 +429,12 @@
               results.co
             ],
             backgroundColor: [
-              '#f44336', // PM2.5
-              '#ff9800', // PM10
-              '#ffeb3b', // NO2
-              '#2196f3', // SO2
-              '#4caf50', // O3
-              '#9c27b0'  // CO
+              '#f44336',
+              '#ff9800',
+              '#ffeb3b',
+              '#2196f3',
+              '#4caf50',
+              '#9c27b0'
             ]
           }]
         },

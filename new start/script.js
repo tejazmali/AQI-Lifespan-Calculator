@@ -10,3 +10,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
 });
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Load header
+    fetch('/new start/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+            initializeMenuToggle(); // Ensure toggle works after loading
+        });
+
+});
