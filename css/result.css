@@ -1,0 +1,269 @@
+ /* Loader overlay styles */
+ #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #03071277;
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Smooth fade out transition */
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  /* Keyframe animation for fade in and slide up */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slow bump animation for the loader's Lottie player */
+  @keyframes slowBump {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.07); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Apply slow bump animation to the Lottie loader */
+  #loader dotlottie-player {
+    animation: slowBump 2s infinite;
+  }
+
+  /* Apply animation to content */
+  .animate {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0; /* Start invisible, then animate to visible */
+  }
+
+  /* Header styles */
+  .header {
+    background-color: rgba(17, 24, 39, 0.85);
+    border-bottom: 1px solid #202c47d7;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
+  .header a {
+    text-decoration: none;
+  }
+  .container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+    text-align: start;
+    margin-top: 15px;
+  }
+  .info {
+    margin-right: 10px;
+    color: #bebebe;
+    cursor: pointer;
+  }
+  .info:hover {
+    color: #fff;
+  }
+
+  /* Body and content styles */
+  body {
+    margin: 0;
+    padding: 70px 0 0 0; /* Padding top to prevent content from hiding under the fixed header */
+    background-color: #030712; 
+    color: #FAFAFA; 
+    font-family: "Inter", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  .container-result {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    animation-delay: 0.2s;
+  }
+  h1 {
+    margin-top: 0;
+    font-size: 28px;
+    text-align: center;
+  }
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .summary-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    flex: 1 1 200px;
+    min-width: 180px;
+    animation-delay: 0.4s;
+  }
+  .summary-item h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+  }
+  .summary-item p {
+    margin: 0;
+    font-size: 16px;
+    color: #cccccc;
+  }
+  .details {
+    margin-top: 30px;
+    animation-delay: 0.6s;
+  }
+  .details h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .detail-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+  }
+  .detail-item span {
+    display: block;
+    font-size: 14px;
+    color: #cccccc;
+  }
+  /* Chart container */
+  .chart-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    margin-top: -15px;
+    width: 60%;
+  }
+  .chart-container h2 {
+    font-size: 20px;
+    margin-top: -5px;
+  }
+  /* Footer styles */
+  footer {
+    background-color: #111827;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 176px;
+    border-top: 1px solid #202c47d7;
+  }
+  footer p {
+    margin: 0;
+    font-size: 14px;
+  }
+  /* AQI Circle Styles */
+  .aqi-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 auto;
+    animation: bump 3s infinite;
+  }
+  @keyframes bump {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.07); }
+    100% { transform: scale(1); }
+  }
+  .aqi-value {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0;
+  }
+  .aqi-status {
+    font-size: 18px;
+    margin-top: 25px;
+    font-weight: 500;
+  }
+  #cigsPerDay {
+    color:#ff8c00;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  #para-1 {
+    color: #FAFAFA;
+  }
+  #para-2 {
+    font-size: 13.7px;
+    margin-top: 3px;
+  }
+  #daysLost {
+    color: rgb(234, 7, 7);
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .heath-impact {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 20px;
+    margin-top: -20px;
+    text-align: center;
+    height: 280px;
+    width: 35%;
+  }
+  .heath-impact h2 {
+    font-size: 19px;
+  }
+  .heath-impact img {
+    width: 200px;
+    height: 200px;
+  }
+  .summary-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    animation-delay: 0.8s;
+  }
+  #cigarette {
+    margin-top: -50px;
+    margin-left: 50px;
+    margin-bottom: -100px;
+  }

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Air Quality Results</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- DotLottie Player for loader animation -->
+  <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
+<link rel="stylesheet" href="/css/result.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="result-page">
+  <!-- Loader overlay with Lottie animation -->
+  <div id="loader">
+    <dotlottie-player src="https://lottie.host/284dd940-d75a-417c-9dfe-4408ee36dcd7/JBYXzei0cx.lottie" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+  </div>
+
+  <header class="header">
+    <div class="container">
+      <a href="/">
+        <div class="title">
+          <h1>Airtox</h1>
+        </div>
+      </a>
+      <span class="material-symbols-outlined info">info</span>
+    </div>
+  </header>
+
+  <div class="container-result animate">
+    <h1 id="stateHeading">Air Quality in ...</h1>
+    <!-- High-level summary boxes -->
+    <div class="summary">
+      <!-- AQI Circle Summary -->
+      <div class="summary-item animate">
+        <h2>AQI</h2>
+        <!-- AQI Circle -->
+        <div class="aqi-circle" id="aqiCircle">
+          <div class="aqi-value" id="aqiValue">--</div>
+        </div>
+        <div class="aqi-status" id="aqiStatus">Loading...</div>
+      </div>
+      <div class="summary-item animate">
+        <h2>Cigarette Equivalent</h2>
+        <div id="cigarette">
+          <dotlottie-player src="https://lottie.host/4c72a8f3-1e28-4546-81b8-c853f1d5aacf/XCmRQYckky.lottie" background="transparent" speed="1" style="width: 300px; height:300px" direction="1" playMode="forward" loop autoplay></dotlottie-player>
+        </div>
+        <p id="para-1"><span id="cigsPerDay"></span> cigarettes per day</p>
+        <p id="para-2">(<span id="cigsPerYear"></span> cigarettes per year)</p>
+      </div>
+    </div>
+
+    <div class="summary-2 animate">
+      <!-- Pollutant bar chart -->
+      <div class="chart-container">
+        <h2>Pollutant Levels</h2>
+        <canvas id="pollutantChart"></canvas>
+      </div>
+      <div class="summary-item heath-impact animate">
+        <h2>Health Impact</h2>
+        <img id="healthImg" src="" alt="Health Impact Image">
+        <p id="para-1"><span id="daysLost"></span> days of life lost</p>
+        <p id="para-2">(<span id="yearsLost"></span> years reduction)</p>
+      </div>
+    </div>
+
+    <!-- Detailed analysis -->
+    <div class="details animate">
+      <h2>Detailed Analysis</h2>
+      <div class="detail-grid">
+        <div class="detail-item animate">
+          <span>PM2.5</span>
+          <span id="pm25Val"></span>
+        </div>
+        <div class="detail-item animate">
+          <span>PM10</span>
+          <span id="pm10Val"></span>
+        </div>
+        <div class="detail-item animate">
+          <span>NO2</span>
+          <span id="no2Val"></span>
+        </div>
+        <div class="detail-item animate">
+          <span>SO2</span>
+          <span id="so2Val"></span>
+        </div>
+        <div class="detail-item animate">
+          <span>O3</span>
+          <span id="o3Val"></span>
+        </div>
+        <div class="detail-item animate">
+          <span>CO</span>
+          <span id="coVal"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="animate">
+    <p>Design by Tejas Mali ❤️</p>
+  </footer>
+
+
+<script src="/js/result.js"></script>
+</body>
+</html>

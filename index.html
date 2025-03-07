@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Airtox</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,300" rel="stylesheet">
+  <!-- DotLottie Player for loader animation -->
+  <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
+ <link rel="stylesheet" href="/css/selectmap.css"> 
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loader Overlay -->
+  <div id="loader">
+    <dotlottie-player src="https://lottie.host/284dd940-d75a-417c-9dfe-4408ee36dcd7/JBYXzei0cx.lottie" background="transparent" speed="1" style="width:300px; height:300px;" loop autoplay></dotlottie-player>
+  </div>
+
+  <div id="header"></div>
+  <div class="map-container">
+    <h3>Select a State</h3>
+    <p>Click on any state in the map to view air pollution data.</p>
+    <div id="indian-map">Loading map...</div>
+  </div>
+
+  <!-- The custom tooltip div (initially hidden) -->
+  <div id="custom-tooltip"></div>
+  <div id="footer"></div>
+
+  <!-- FusionCharts Scripts -->
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.maps.js"></script>
+  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.india.js"></script>
+
+<script src="/js/selectmap.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+</html>
