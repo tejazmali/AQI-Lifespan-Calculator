@@ -46,7 +46,7 @@
           "Ladakh": "34.1526,77.5771",
           "Chandigarh": "30.7333,76.7794",
           "Andaman and Nicobar Islands": "11.7401,92.6586",
-          "Dadra and Nagar Haveli and Daman and Diu": "20.1809,73.0169"
+          "Daman and Diu": "20.1809,73.0169"
         }
         
   

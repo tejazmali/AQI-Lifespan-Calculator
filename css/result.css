@@ -1,5 +1,5 @@
- /* Loader overlay styles */
- #loader {
+  /* Loader overlay styles */
+  #loader {
     position: fixed;
     top: 0;
     left: 0;
@@ -96,8 +96,8 @@
     box-sizing: border-box;
   }
   .container-result {
-    max-width: 800px;
-    width: 100%;
+    width: 800px;
+  
     padding: 20px;
     margin-top: 40px;
     background: rgba(255, 255, 255, 0.1);
@@ -267,3 +267,255 @@
     margin-left: 50px;
     margin-bottom: -100px;
   }
+
+
+.solutions-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 30px;
+  color: #FAFAFA; /* text color */
+}
+
+/* Title */
+.solutions-container h2 {
+
+  margin-bottom: 30px;
+  margin-top: -8px;
+  text-align: center;
+
+}
+
+/* The row of tabs */
+.solutions-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Each tab (icon + text) */
+.solution-tab {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 4px 16px;
+  background-color: #11182700; /* or a slightly lighter/darker tone */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border: 1px solid #202c4700; /* subtle border */
+}
+
+.solution-tab:hover {
+  border-color: #5b86f7;   
+}
+
+.solution-tab.active {
+  background-color: #2d3645; /* highlight the active tab */
+  border-color: #5b86f7;     /* or a highlight color of your choice */
+}
+
+/* Icon (use your own SVG or PNG) */
+.solution-icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Text inside each tab */
+.solution-text h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.solution-text p {
+  margin: 0;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* Right-side message area */
+.solution-details {
+  background-color: transparent; /* or match your style */
+  text-align: left;
+  padding: 0 4px;
+  min-height: 60px; /* just to ensure stable layout */
+}
+
+.solution-details p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* The "Get a N95 Mask" link */
+.solution-link {
+  color: #3b82f6; 
+  text-decoration: none;
+  font-weight: 500;
+}
+.solution-link:hover {
+  text-decoration: underline;
+}
+/* Container for the card */
+.health-risk-card {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  color: #fff;
+  width: 750px; 
+}
+
+/* Header styles */
+.health-header h1 {
+  font-size: 22px;
+  margin-bottom: 40px;
+}
+.health-header h2 {
+  font-size: 16px;
+  color: #60a5fa;
+}
+
+/* Tabs styling */
+.health-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.health-tabs .tab-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid #4b5563;
+  background-color: transparent;
+  color: #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.health-tabs .tab-btn:hover {
+  background-color: #374151;
+}
+.health-tabs .tab-btn.active {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+
+/* Content layout */
+.health-content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .health-content-wrapper {
+    grid-template-columns: 1fr 1.5fr;
+  }
+}
+
+/* Left Panel: Illustration */
+.illustrationbg {
+
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #1f2937;
+  min-height: 200px;
+}
+.illustration img {
+  display: block;
+  height: 200px;
+  margin: 0 auto;
+}
+
+
+
+.risk-indicator {
+  background-color: #ffcc23;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  color: #ffffff;
+}
+.indicator-box {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  border-radius: 0.125rem;
+  margin-right: 0.5rem;
+}
+
+/* Right Panel: Information */
+.info-panel h2 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.risk-description {
+  margin-bottom: 1rem;
+}
+.text-gray {
+  color: #d1d5db;
+}
+.text-highlight {
+  color: #fcd34d;
+  font-weight: bold;
+}
+.symptoms-description {
+  color: #9ca3af;
+
+  font-size: 13px;
+}
+
+/* Recommendations */
+.recommendations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.dos h3, .donts h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.dos ul, .donts ul {
+  list-style: none;
+  padding: 0;
+}
+.dos li, .donts li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #9ca3af;
+  font-size: 13px;
+}
+.check-icon, .x-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  padding: 0.25rem;
+}
+.check-icon {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.2);
+}
+.x-icon {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.2);
+}

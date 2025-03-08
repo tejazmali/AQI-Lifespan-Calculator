@@ -12,6 +12,7 @@
   <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
 <link rel="stylesheet" href="/css/result.css">
 <link rel="stylesheet" href="style.css">
+
 </head>
 <body id="result-page">
   <!-- Loader overlay with Lottie animation -->
@@ -97,7 +98,127 @@
         </div>
       </div>
     </div>
+    <!-- Solutions Tabs Section -->
+<!-- Solutions for Current AQI (Tabbed) -->
+<div class="solutions-container  summary-item animate">
+  <h2>Solutions for Current AQI</h2>
+  
+  <div class="solutions-tabs">
+    <!-- Air Purifier Tab -->
+    <div class="solution-tab" data-tab="air-purifier">
+      <div class="solution-icon">
+        <!-- Replace with your own icon -->
+        <img src="https://www.aqi.in/media/sections/health-advice/solution_use-purifier.svg" alt="Air Purifier">
+      </div>
+      <div class="solution-text">
+        <h3>Air Purifier</h3>
+        <p id="turn-off">Turn On</p>
+      </div>
+    </div>
+
+    <!-- Car Filter Tab -->
+    <div class="solution-tab" data-tab="car-filter">
+      <div class="solution-icon">
+        <!-- Replace with your own icon -->
+        <img src="https://www.aqi.in/media/sections/health-advice/solution_car-filter.svg" alt="Car Filter">
+      </div>
+      <div class="solution-text">
+        <h3>Car Filter</h3>
+        <p id="advisable">Must</p>
+      </div>
+    </div>
+
+    <!-- N95 Mask Tab (Default Active) -->
+    <div class="solution-tab active" data-tab="n95-mask">
+      <div class="solution-icon">
+        <!-- Replace with your own icon -->
+        <img src="https://www.aqi.in/media/sections/health-advice/solution_wear-mask.svg" alt="N95 Mask">
+      </div>
+      <div class="solution-text">
+        <h3>N95 Mask</h3>
+        <p id="advisable">Must</p>
+      </div>
+    </div>
+
+    <!-- Stay Indoor Tab -->
+    <div class="solution-tab" data-tab="stay-indoor">
+      <div class="solution-icon">
+        <!-- Replace with your own icon -->
+        <img src="https://www.aqi.in/media/sections/health-advice/solution_stay-indoor.svg" alt="Stay Indoor">
+      </div>
+      <div class="solution-text">
+        <h3>Stay Indoor</h3>
+        <p id="advisable">Must</p>
+      </div>
+    </div>
   </div>
+
+  <!-- Dynamic Content Panel (changes by tab) -->
+  <div class="solution-details">
+    <p id="solution-message">
+      Must wear a mask to shield yourself from pollutant exposure.
+    </p>
+    <a href="#" class="solution-link">Get a N95 Mask</a>
+  </div>
+</div>
+
+<!-- Health Risks Card -->
+<div class="health-risk-card  animate">
+  <div class="health-header">
+    <h1>Prevent Health Problems: Understand Your Risks</h1>
+  
+  </div>
+  <!-- Navigation Tabs -->
+  <div class="health-tabs">
+    <button class="tab-btn" data-tab="asthma">Asthma</button>
+    <button class="tab-btn" data-tab="heart">Heart Issues</button>
+    <button class="tab-btn" data-tab="allergies">Allergies</button>
+    <button class="tab-btn" data-tab="sinus">Sinus</button>
+    <button class="tab-btn" data-tab="cold">Cold/Flu</button>
+    <button class="tab-btn active" data-tab="chronic">Chronic (COPD)</button>
+  </div>
+
+  <!-- Card Content -->
+  <div class="health-content-wrapper">
+    <!-- Left Panel: Illustration & Risk Indicator -->
+    <div class="illustrationbg">
+      <div class="illustration">
+       
+      </div>
+      <div class="risk-indicator">
+        <span class="indicator-box"></span>
+        Mid Chances of Asthma
+      </div>
+    </div>
+
+    <!-- Right Panel: Information & Recommendations -->
+    <div class="info-panel">
+      <h2>Asthma</h2>
+      <p class="risk-description">
+        Risk of <span class="text-gray">Asthma</span> symptoms is <span class="text-highlight">Mid</span> when AQI is <span class="text-highlight">Poor (50-150)</span>.
+      </p>
+      <p class="symptoms-description">
+        Symptoms include severe coughing, difficulty breathing, wheezing, and chest tightness.
+      </p>
+      <div class="recommendations">
+        <!-- Do's -->
+        <div class="dos">
+          <h3>Do's :</h3>
+          <ul></ul>
+        </div>
+        <!-- Don'ts -->
+        <div class="donts">
+          <h3>Don'ts :</h3>
+          <ul></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+
 
   <!-- Footer Section -->
   <footer class="animate">
