@@ -88,13 +88,12 @@ document.getElementById('calculateBtn').addEventListener('click', function() {
       const cigsPerDay = (pm25 / 22).toFixed(2);
       const cigsPerYear = Math.round(cigsPerDay * 365);
 
-      // Corrected Relative Risk (RR) calculation
-      let RR = pm25 > 10 ? 1 + 0.06 * ((pm25 - 10) / 10) : 1;
-      let AF = RR > 1 ? (RR - 1) / RR : 0;
-      let RLE = age < 70 ? 70 - age : Math.max(75 - age, 0);
-      let exposureFraction = Math.min(yearsLived / 70, 1);
-      let estimatedYLL = AF * RLE * exposureFraction;
-      let estimatedYLLDays = (estimatedYLL * 365).toFixed(0);
+      // New life expectancy reduction calculation:
+      // ΔLE (years) = (PM2.5 - PM_ref) × (0.98 / 10)
+      // PM_ref is the reference concentration (here, 10 µg/m³)
+      const PM_ref = 10;
+      let estimatedLELoss = pm25 > PM_ref ? (pm25 - PM_ref) * (0.98 / 10) : 0;
+      let estimatedLELossDays = (estimatedLELoss * 365).toFixed(0);
 
       let aqiStatus = "Good";
       if (overallAQI > 50 && overallAQI <= 100) aqiStatus = "Moderate";
@@ -115,8 +114,8 @@ document.getElementById('calculateBtn').addEventListener('click', function() {
         so2: so2,
         o3: o3,
         co: co,
-        daysLost: estimatedYLLDays,
-        yearsLost: estimatedYLL.toFixed(2),
+        daysLost: estimatedLELossDays,
+        yearsLost: estimatedLELoss.toFixed(2),
         rawData: data
       };
 
