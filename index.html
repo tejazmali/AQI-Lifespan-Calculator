@@ -1,66 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Airtox</title>
-  <!-- Google Fonts -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Air Quality Smoke Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Inter:400,300" rel="stylesheet">
   <!-- DotLottie Player for loader animation -->
   <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
- <link rel="stylesheet" href="/css/selectmap.css"> 
- <link rel="stylesheet" href="style.css">
+  <style>
+    /* Header Section */
+    .header {
+      color: #fff;
+      padding: 80px 20px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      animation: slideDown 5s forwards;
+      position: relative;
+    }
+    
+    @keyframes slideDown {
+      0% {
+        height: 100vh;
+        padding: 80px 20px;
+      }
+      80% {
+        height: 100vh;
+        padding: 80px 20px;
+      }
+      100% {
+        height: 100vh;
+        padding: 40px 20px;
+      }
+    }
+    
+    .header-content {
+      position: relative;
+      width: 100%;
+    }
+    
+    /* New animation: scaleUp for centered element */
+    @keyframes scaleUp {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .hero-text {
+      color: #f0f0f0;
+      font-size: 7rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      position: absolute;
+      margin-top: -100px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+      animation: scaleUp 1.5s ease-out forwards;
+    }
+    
+    .header p,
+    .cta-button {
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 1.5s;
+      margin-top: 20px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .header p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      width: 70%;
+      margin: 40px auto;
+   
+    }
+    
+    .cta-button {
+      align-items: center;
+      background-color: #ffffff;
+      backdrop-filter: blur(10px);
+      color: #020202;
+      padding: 12px 60px;
+      border-radius: 5px;
+ 
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      background-color: #dedede;
+    }
+    
+    /* Loader overlay styles */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #03071277;
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 0.8s ease-in-out;
+    }
+    
+    @keyframes slowBump {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.07); }
+      100% { transform: scale(1); }
+    }
+    
+    #loader dotlottie-player {
+      animation: slowBump 2s infinite;
+    }
+    
+    /* General dark page styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter';
+      background-color: #03071277;
+      color: #ffffff;
+    }
+    
+    .banner {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Background image in its own element to allow filters without affecting text */
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('img/image.png') no-repeat center center/cover;
+      filter: invert(1) brightness(10%);
+      z-index: -2;
+    }
+    
+    /* Clouds are placed separately so they’re not inverted */
+    .clouds {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      filter: invert(0);
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .clouds img {
+      position: absolute;
+      bottom: 0;
+      margin-top: 500px;
+      max-width: 100%;
+      animation: animate calc(2s * var(--i)) linear infinite;
+      filter: hue-rotate(180deg) brightness(50%) opacity(70%);
+    }
+    
+    @keyframes animate {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+      25%, 75% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(3);
+      }
+    }
+    /* From Uiverse.io by adeladel522 */ 
+.button {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #111827;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffff;
+  gap: 10px;
+  font-weight: bold;
+  border: 3px solid #ffffffe4;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 1.5s;
+   
+      margin: -20px auto;
 
+      border-radius: 10px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  border-color: rgb(255, 255, 255);
+}
+
+.button:hover .icon {
+  transform: translate(4px);
+}
+
+.button:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+  </style>
 </head>
 <body>
-  <!-- Loader Overlay -->
   <div id="loader">
     <dotlottie-player src="https://lottie.host/284dd940-d75a-417c-9dfe-4408ee36dcd7/JBYXzei0cx.lottie" background="transparent" speed="1" style="width:300px; height:300px;" loop autoplay></dotlottie-player>
   </div>
-
-  <div id="header"></div>
-  <div class="map-container">
-    <h3>Select a State</h3>
-    <p>Click on any state in the map to view air pollution data.</p>
-    <div id="indian-map">Loading map...</div>
+  <div class="banner">
+    <!-- Inverted background image -->
+    <div class="banner-bg"></div>
+    
+    <header id="header" class="header">
+      <div class="header-content">
+          <h1 class="hero-text"> AIRTOX </h1>
+          <p>This calculator estimates the reduction in your lifespan and the equivalent number of cigarettes you’ve "smoked" indirectly, based on your age and the air quality index (AQI) of your area.</p>
+          <button class="button" onclick="window.location.href='/selectmap.html';">
+            Calculate Now
+            <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
+              <path
+                clip-rule="evenodd"
+                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+      </div>
+    </header>
+    
+    <!-- Inverted clouds -->
+    <div class="clouds">
+      <img src="img/cloud2.png" style="--i:2">
+      <img src="img/cloud3.png" style="--i:3">
+      <img src="img/cloud4.png" style="--i:4">
+      <img src="img/cloud5.png" style="--i:5">
+      <img src="img/cloud1.png" style="--i:6">
+      <img src="img/cloud2.png" style="--i:7">
+    </div>
   </div>
-
-  <!-- The custom tooltip div (initially hidden) -->
-  <div id="custom-tooltip"></div>
-
-  <div class="container-aqilist">
-    <h2>India Air Quality Index Dashboard</h2>
-    <div id="loading" class="loading">Loading air quality data...</div>
-    <div id="error" class="error" style="display: none;"></div>
-    <table id="aqi-table" style="display: none;">
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>State</th>
-                <th>AQI</th>
-                <th>AQI Status</th>
-                <th>Standard Value 
-                    <span class="tooltip">
-                        <span class="info-icon">i</span>
-                        <span class="tooltip-text">Shows how many times the AQI exceeds the standard safe value</span>
-                    </span>
-                </th>
-            </tr>
-        </thead>
-        <tbody id="aqi-data">
-            <!-- Data will be inserted here -->
-        </tbody>
-    </table>
-    <div id="last-updated" class="last-updated"></div>
-</div>
-  <div id="footer"></div>
-
-  <!-- FusionCharts Scripts -->
-  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
-  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.maps.js"></script>
-  <script src="https://static.fusioncharts.com/code/latest/fusioncharts.india.js"></script>
-  
-
-<script src="/js/selectmap.js"></script>
-  <script src="/js/script.js"></script>
+  <script>
+    const heading = document.querySelector('.banner h2');
+    // Fade in the heading after 600ms (if present)
+    setTimeout(() => {
+      if (heading) {
+        heading.style.opacity = "1";
+      }
+    }, 600);
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      setTimeout(function() {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = "0";
+        setTimeout(function() {
+          loader.style.display = "none";
+        }, 800);
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
