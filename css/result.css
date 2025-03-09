@@ -73,15 +73,22 @@
     text-align: start;
     margin-top: 15px;
   }
-  .info {
+  .info{
+ 
     margin-right: 10px;
     color: #bebebe;
     cursor: pointer;
+    padding: 10px 10px;
+    border-radius: 10px;
+    transition: color 0.3s ease;
   }
-  .info:hover {
-    color: #fff;
-  }
+  .info:hover{
+    color: #cbcbcb;
+    background-color: #bebebe34;
+    
+    
 
+  }
   /* Body and content styles */
   body {
     margin: 0;
