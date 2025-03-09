@@ -89,10 +89,10 @@ document.getElementById('calculateBtn').addEventListener('click', function() {
       const cigsPerYear = Math.round(cigsPerDay * 365);
 
       // New life expectancy reduction calculation:
-      // ΔLE (years) = (PM2.5 - PM_ref) × (0.98 / 10)
+      // ΔLE (years) = (PM2.5 - PM_ref) × (0.98 / 10) × (yearsLived / 80)
       // PM_ref is the reference concentration (here, 10 µg/m³)
       const PM_ref = 10;
-      let estimatedLELoss = pm25 > PM_ref ? (pm25 - PM_ref) * (0.98 / 10) : 0;
+      let estimatedLELoss = pm25 > PM_ref ? (pm25 - PM_ref) * (0.98 / 10) * (yearsLived / 70) : 0;
       let estimatedLELossDays = (estimatedLELoss * 365).toFixed(0);
 
       let aqiStatus = "Good";
