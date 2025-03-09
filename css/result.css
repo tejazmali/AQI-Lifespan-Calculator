@@ -394,7 +394,19 @@
   color: #e5e7eb;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: inline-flex;
+  align-items: center;
 }
+
+/* Add margin to the image so there's space before the text */
+.health-tabs .tab-btn img {
+  width: 1rem;   /* adjust sizing as needed */
+  height: 1rem;
+  filter: brightness(0) invert(1);
+  margin-right: 0.4rem;  /* adjust margin as needed */
+}
+
+
 .health-tabs .tab-btn:hover {
   background-color: #374151;
 }
