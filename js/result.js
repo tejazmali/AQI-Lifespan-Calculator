@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const dosList = document.querySelector('.health-risk-card .dos ul');
   const dontsList = document.querySelector('.health-risk-card .donts ul');
 
-  // Content data for each tab (note: the static riskIndicatorText value will be overridden dynamically)
+  // Content data for each tab
   const contentData = {
     asthma: {
       title: "Asthma",
@@ -123,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
       riskDescription.innerHTML = data.riskDescription;
       symptomsDescription.textContent = data.symptomsDescription;
       illustrationPanel.innerHTML = data.illustration;
-      // (riskIndicator will be updated dynamically below)
       
       // Update Do's list
       dosList.innerHTML = data.dos
@@ -165,14 +164,8 @@ document.addEventListener('DOMContentLoaded', function() {
       color = '#2ecc71'; // Green for Good
     } else if (window.aqi <= 100) {
       color = '#f1c40f'; // Yellow for Moderate
-    } else if (window.aqi <= 150) {
-      color = '#ef4444'; 
-    } else if (window.aqi <= 200) {
-      color = '#ef4444'; // Red for Unhealthy
-    } else if (window.aqi <= 300) {
-      color = '#ef4444'; 
     } else {
-      color = '#ef4444'; // Dark Red for Hazardous
+      color = '#ef4444'; // Red for Poor and beyond
     }
 
     document.querySelectorAll('.text-highlight').forEach(el => {
@@ -217,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   window.updateRiskDescription = updateRiskDescription;
 
-  // Function to update risk indicator dynamically; this now syncs the risk level with the active disease
+  // Function to update risk indicator dynamically; this syncs the risk level with the active disease
   function updateRiskIndicator() {
     const riskIndicatorEl = document.querySelector('.health-risk-card .risk-indicator');
     const diseaseTitle = document.querySelector('.health-risk-card .info-panel h2').textContent;
@@ -238,14 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
       indicatorBgColor = '#2ecc71'; // Green for Good
     } else if (window.aqi <= 100) {
       indicatorBgColor = '#ffcc23'; // Yellow for Moderate
-    } else if (window.aqi <= 150) {
-      indicatorBgColor = '#ef4444'; 
-    } else if (window.aqi <= 200) {
-      indicatorBgColor = '#ef4444'; // Red for Unhealthy
-    } else if (window.aqi <= 300) {
-      indicatorBgColor = '#ef4444'; 
     } else {
-      indicatorBgColor = '#ef4444'; 
+      indicatorBgColor = '#ef4444'; // Red for Poor and beyond
     }
   
     // Update the risk indicator's inner HTML and background color
@@ -255,21 +242,24 @@ document.addEventListener('DOMContentLoaded', function() {
   
   window.updateRiskIndicator = updateRiskIndicator;
 
-  // Function to update solution text (the "Must" or "Advisable" advisory) based on AQI
+  // Updated function: Remove old duplicate and merge both advisory updates
   function updateSolutionAdvisory() {
-    const advisoryText = window.aqi > 100 ? 'Must' : 'Advisable'
-    document.querySelectorAll('.solution-tab .solution-text p#advisable, .solution-tab .solution-text p.advisable').forEach(el => {
-      el.textContent = advisoryText;
-    });
-  }
-  function updateSolutionAdvisory() {
-    const advisoryText = window.aqi > 100 ? 'Turn On' : 'Turn Off'
-    document.querySelectorAll('.solution-tab .solution-text p#turn-off').forEach(el => {
-      el.textContent = advisoryText;
-    });
+    // Update advisory for elements that indicate the level (e.g., p with id "advisable" or class "advisable")
+    const advisText = window.aqi > 100 ? 'Must' : 'Advisable';
+    document.querySelectorAll('.solution-tab .solution-text p, .solution-tab .solution-text p')
+      .forEach(el => {
+        el.textContent = advisText;
+      });
+    
+    // Update advisory for elements that indicate action (e.g., p with id "turn-off")
+    const turnText = window.aqi > 100 ? 'Turn On' : 'Turn Off';
+    document.querySelectorAll('.solution-tab .solution-text p.turn-off')
+      .forEach(el => {
+        el.textContent = turnText;
+      });
   }
 
-  // Define updateBackgroundColorAndRange inside DOMContentLoaded so it has access to the correct window.aqi
+  // Define updateBackgroundColorAndRange so it has access to the correct window.aqi
   function updateBackgroundColorAndRange() {
     let aqiRange;
     let bgColor;
@@ -291,14 +281,13 @@ document.addEventListener('DOMContentLoaded', function() {
       element.style.backgroundColor = bgColor;
     });
 
-    // Optionally, log the AQI range to the console
     console.log("Current AQI Range: " + aqiRange);
   }
 
   // Initialize with default active tab content ("asthma")
   updateContent('asthma');
 
-  // If needed, set the "asthma" tab button as active
+  // Set the "asthma" tab button as active
   tabButtons.forEach(btn => {
     btn.classList.remove('active');
     if (btn.getAttribute('data-tab') === 'asthma') {
@@ -455,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.updateRiskDescription();
   window.updateRiskIndicator();
 
-  // Update the solution advisory text ("Must" or "Advisable") based on AQI
+  // Update the solution advisory text ("Must"/"Advisable" and "Turn On"/"Turn Off") based on AQI
   updateSolutionAdvisory();
 
   /* 
