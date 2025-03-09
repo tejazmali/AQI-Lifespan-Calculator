@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About This Application</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #030712; 
+      color: #e0e0e0;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+    .container-info {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 100px auto;  /* Added top and bottom margin */
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    header {
+      display: flex;               /* Use flexbox for header layout */
+      justify-content: space-between; /* Space out the heading and GitHub button */
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    p {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    h3 {
+      font-size: 22px;
+      font-weight: 500;
+      border-bottom: 1px solid #444;
+      padding-bottom: 6px;
+      margin: 24px 0 12px;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 30px;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    ul li {
+      margin-bottom: 6px;
+    }
+    .calc-section p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    .formula {
+      background-color: #222;
+      border-left: 4px solid #61a0e2;
+      padding: 10px 16px;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 12px 0;
+      border-radius: 4px;
+    }
+    /* Scoped Anchor Tag Styles */
+    .container-info a {
+      color: #61a0e2;
+      text-decoration: none;
+      border-bottom: 1px dotted #007bff;
+      transition: color 0.3s ease;
+    }
+    .container-info a:hover {
+      color: #ffffff;
+    }
+    /* GitHub Button Styles */
+    .github-btn {
+      background-color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #000000 !important;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .github-btn svg {
+  fill: #000000;
+  margin-right: 8px;
+  width: 22px;
+  height: 22px;
+  transition: transform 1s ease-in;
+}
+
+.github-btn:hover {
+  background-color: #e3e3e3;
+  transform: scale(1.05);
+}
+
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container-info">
+    <header>
+      <h1>About This Application</h1>
+      <a
+        class="github-btn"
+        href="https://github.com/tejazmali/AQI-Project"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 16 16" version="1.1">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+            1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+            0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68
+            0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15
+            0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2
+            0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+        GitHub
+      </a>
+    </header>
+    <main>
+      <p>
+        This interactive application visualizes air pollution data across different states in India and calculates its potential impact on your health and lifespan.
+      </p>
+      <section>
+        <h3>How It Works</h3>
+        <ul>
+          <li>Select a state from the interactive map of India</li>
+          <li>Enter your age and height</li>
+          <li>View real-time air pollution data and its potential health impacts</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Data Sources</h3>
+        <p>
+          Air pollution data is sourced from the OpenWeather Air Pollution API. You can explore more details at the 
+          <a href="https://openweathermap.org/api/air-pollution" target="_blank" rel="noopener noreferrer">OpenWeather API page</a>.
+        </p>
+        <p>
+          Health impact calculations are based on scientific research. For further reading, check out these research reports:
+          <br>
+          • <a href="https://berkeleyearth.wpengine.com/air-pollution-and-cigarette-equivalence/" target="_blank" rel="noopener noreferrer">Air Pollution and Cigarette Equivalence - Berkeley Earth</a>
+          <br>
+          • <a href="https://aqli.epic.uchicago.edu/wp-content/uploads/2018/11/AQLI-Intro-Report.pdf" target="_blank" rel="noopener noreferrer">AQLI Intro Report - University of Chicago</a>
+        </p>
+      </section>
+      <section>
+        <h3>Calculations</h3>
+        <div class="calc-section">
+          <p>
+            <strong>Cigarette Equivalent from AQI:</strong> This metric estimates the number of cigarettes smoked based on the AQI level. A PM2.5 concentration of 22 µg/m³ over a 24-hour period is approximately equivalent to smoking one cigarette.
+          </p>
+          <div class="formula">
+            Cigarette Equivalence = (PM2.5 concentration in µg/m³) / 22
+          </div>
+          <p>
+            <strong>Reduced Lifespan:</strong> Research indicates that for every increase of 10 μg/m³ in average PM₂.₅ levels, there is an associated decrease of approximately 0.98 years in life expectancy.
+          </p>
+          <div class="formula">
+            Life Expectancy Reduction (years) = ((PM2.5 - PM<sub>ref</sub>) / 10) × 0.98 × (Age / 70)
+          </div>
+          <p>
+            <em>Where:</em> PM<sub>ref</sub> is the baseline PM2.5 concentration, 0.98 represents the years of life lost per 10 μg/m³ increase in PM2.5, and 70 is used as the average human lifespan for normalization.
+          </p>
+          <p>
+            <strong>PM2.5 to AQI:</strong> PM2.5 concentration values are converted to AQI values using standard conversion formulas, helping to interpret particulate matter data in terms of health risk.
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="/js/script.js"></script>
+  </div>
+  <div id="footer"></div>
+</body>
+</html>
