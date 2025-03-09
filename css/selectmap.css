@@ -125,3 +125,232 @@
     transform: scale(1.05);
     filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5));
   }
+
+
+
+
+  :root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --border-color: #333;
+    --header-bg: #252525;
+    --hazardous-color: #ff5252;
+    --severe-color: #b967ff;
+    --unhealthy-color: #ff7b7b;
+    --moderate-color: #ffb74d;
+    --good-color: #66bb6a;
+  }
+  
+  
+  .container-aqilist {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  
+  
+  
+  
+  .error {
+    text-align: center;
+    color: var(--hazardous-color);
+    padding: 20px;
+    background-color: rgba(255, 82, 82, 0.1);
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  thead {
+    background-color: var(--header-bg);
+  }
+  
+  th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .rank-cell {
+    text-align: center;
+    font-weight: bold;
+    width: 60px;
+  }
+  
+  .aqi-cell {
+    width: 100px;
+    position: relative;
+  }
+  
+  .aqi-gauge {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    margin: 0 auto;
+  }
+  
+  .aqi-gauge svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .aqi-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .status-cell {
+    width: 150px;
+  }
+  
+  .status {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+  }
+  
+  .status.hazardous {
+    background-color: rgba(255, 82, 82, 0.2);
+    color: var(--hazardous-color);
+  }
+  
+  .status.severe {
+    background-color: rgba(185, 103, 255, 0.2);
+    color: var(--severe-color);
+  }
+  
+  .status.unhealthy {
+    background-color: rgba(255, 123, 123, 0.2);
+    color: var(--unhealthy-color);
+  }
+  
+  .status.moderate {
+    background-color: rgba(255, 183, 77, 0.2);
+    color: var(--moderate-color);
+  }
+  
+  .status.good {
+    background-color: rgba(102, 187, 106, 0.2);
+    color: var(--good-color);
+  }
+  
+  .standard-value {
+    font-weight: bold;
+  }
+  
+  .standard-value.hazardous {
+    color: var(--hazardous-color);
+  }
+  
+  .standard-value.severe {
+    color: var(--severe-color);
+  }
+  
+  .standard-value.unhealthy {
+    color: var(--unhealthy-color);
+  }
+  
+  .standard-value.moderate {
+    color: var(--moderate-color);
+  }
+  
+  .standard-value.good {
+    color: var(--good-color);
+  }
+  
+  .info-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    margin-left: 5px;
+    cursor: help;
+  }
+  
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .last-updated {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  @media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+    
+    th, td {
+        padding: 10px;
+    }
+    
+    .aqi-gauge {
+        width: 60px;
+        height: 30px;
+    }
+    
+    .standard-value-cell {
+        display: none;
+    }
+  }
