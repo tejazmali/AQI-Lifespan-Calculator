@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 800);
   }, 2000);
 
+  document.getElementById("calculateBtn").addEventListener("click", function() {
+    let span = this.querySelector("span");
+    span.textContent = "Loading...";
+
+    // Simulate a delay (e.g., an API call or calculation process)
+    setTimeout(() => {
+        span.textContent = "Calculate Impact"; // Restore the original text
+    }, 10000); // Change back after 3 seconds
+});
+
   // Get query parameters from URL
   const urlParams = new URLSearchParams(window.location.search);
   const stateName = urlParams.get('state') || "Unknown State";
