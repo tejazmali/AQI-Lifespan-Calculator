@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       title: "Asthma",
       riskDescription: "Risk of Asthma is <span class='text-highlight'>Mid</span> when AQI is <span class='text-highlight'>Poor (50-150)</span>.",
       symptomsDescription: "Symptoms include severe coughing, difficulty breathing, wheezing, and chest tightness.",
-      illustration: `<img src="https://www.aqi.in/media/sections/health-advice/disease-asthma.svg" alt="">`,
+      illustration: `<img src="/img/svgs/disease-asthma.svg" alt="">`,
       riskIndicatorText: `High Chances of Asthma`,
       dos: [
         "Keep your inhaler handy at all times.",
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       title: "Heart Issues",
       riskDescription: "Risk of Heart Issues is <span class='text-highlight'>Mid</span> when AQI is <span class='text-highlight'>Poor (50-150)</span>.",
       symptomsDescription: "Symptoms include chest pain, shortness of breath, and irregular heartbeat.",
-      illustration: `<img src="https://www.aqi.in/media/sections/health-advice/disease-heart.svg" alt="">`,
+      illustration: `<img src="/img/svgs/disease-heart.svg" alt="">`,
       riskIndicatorText: `Moderate Chances of Heart Issues`,
       dos: [
         "Maintain a balanced diet low in saturated fats.",
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
       title: "Allergies",
       riskDescription: "Risk of Allergies is <span class='text-highlight'>Mid</span> when AQI is <span class='text-highlight'>Poor (50-150)</span>.",
       symptomsDescription: "Symptoms include sneezing, itchy eyes, runny nose, and congestion.",
-      illustration: `<img src="https://www.aqi.in/media/sections/health-advice/disease-allergy.svg" alt="">`,
+      illustration: `<img src="/img/svgs/disease-allergy.svg" alt="">`,
       riskIndicatorText: `Moderate Chances of Allergies`,
       dos: [
         "Keep windows closed during high pollen times.",
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
       title: "Sinus",
       riskDescription: "Risk of Sinus is <span class='text-highlight'>Mid</span> when AQI is <span class='text-highlight'>Poor (50-150)</span>.",
       symptomsDescription: "Symptoms include facial pain, nasal congestion, and headache.",
-      illustration: `<img src="https://www.aqi.in/media/sections/health-advice/disease-sinus.svg" alt="">`,
+      illustration: `<img src="/img/svgs/disease-sinus.svg" alt="">`,
       riskIndicatorText: `Elevated Chances of Sinus Issues`,
       dos: [
         "Use saline nasal sprays to clear congestion.",
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
       title: "Cold/Flu",
       riskDescription: "Risk of Cold/Flu is <span class='text-highlight'>Mid</span> when AQI is <span class='text-highlight'>Poor (50-150)</span>.",
       symptomsDescription: "Symptoms include runny nose, sore throat, cough, and fever.",
-      illustration: `<img src="https://www.aqi.in/media/sections/health-advice/disease-flu.svg" alt="">`,
+      illustration: `<img src="/img/svgs/disease-flu.svg" alt="">`,
       riskIndicatorText: `Increased Chances of Cold/Flu`,
       dos: [
         "Rest well and stay hydrated.",
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
       title: "Chronic (COPD)",
       riskDescription: "Risk of Chronic (COPD) symptoms is <span class='text-highlight'>Mid</span> when AQI is <span class='text-highlight'>Poor (50-150)</span>.",
       symptomsDescription: "Moderate symptoms include more frequent shortness of breath, persistent cough, increased wheezing, chest tightness, and fatigue.",
-      illustration: `<img src="https://www.aqi.in/media/sections/health-advice/disease-copd.svg" alt="">`,
+      illustration: `<img src="/img/svgs/disease-copd.svg" alt="">`,
       riskIndicatorText: `Mid. Chances of Chronic (COPD)`,
       dos: [
         "Use a humidifier to keep indoor air moist.",
@@ -368,17 +368,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Update health impact image dynamically based on AQI
   const healthImgEl = document.getElementById('healthImg');
   if (aqi <= 50) {
-    healthImgEl.src = "https://www.aqi.in/media/sensor-ranges/aqi-good-level.svg";
+    healthImgEl.src = "/img/svgs/aqi-good-level.svg";
   } else if (aqi <= 100) {
-    healthImgEl.src = "https://www.aqi.in/media/sensor-ranges/aqi-moderate-level.svg";
+    healthImgEl.src = "/img/svgs/aqi-moderate-level.svg";
   } else if (aqi <= 150) {
-    healthImgEl.src = "https://www.aqi.in/media/sensor-ranges/aqi-poor-level.svg";
+    healthImgEl.src = "/img/svgs/aqi-poor-level.svg";
   } else if (aqi <= 200) {
-    healthImgEl.src = "https://www.aqi.in/media/sensor-ranges/aqi-unhealthy-level.svg";
+    healthImgEl.src = "/img/svgs/aqi-unhealthy-level.svg";
   } else if (aqi <= 300) {
-    healthImgEl.src = "https://www.aqi.in/media/sensor-ranges/aqi-severe-level.svg";
+    healthImgEl.src = "/img/svgs/aqi-severe-level.svg";
   } else {
-    healthImgEl.src = "https://www.aqi.in/media/sensor-ranges/aqi-hazardous-level.svg";
+    healthImgEl.src = "/img/svgs/aqi-hazardous-level.svg";
   }
 
   document.getElementById('cigsPerDay').innerText = results.cigsPerDay;
