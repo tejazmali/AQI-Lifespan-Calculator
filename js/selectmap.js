@@ -62,54 +62,116 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((error) => alert("Error: " + error.message));
     });
   }
-
-
   // Dashboard Page: AQI Data & Map
 
   const aqiTableElem = document.getElementById("aqi-data");
   if (aqiTableElem) {
-    const stateCoordinates = {
-      "Andhra Pradesh": "16.5417,80.5158",
-      "Arunachal Pradesh": "27.0844,93.6053",
-      Assam: "26.1433,91.7898",
-      Bihar: "25.5941,85.1376",
-      "Chhattisgarh": "21.2514,81.6296",
-      Goa: "15.4909,73.8278",
-      Gujarat: "21.1667,72.8333",
-      Haryana: "30.7333,76.7794",
-      "Himachal Pradesh": "31.1048,77.1734",
-      Jharkhand: "23.3441,85.3096",
-      Karnataka: "12.9716,77.5946",
-      Kerala: "8.5241,76.9366",
-      "Madhya Pradesh": "23.2599,77.4126",
-      Maharashtra: "19.0760,72.8777",
-      Manipur: "24.8170,93.9368",
-      Meghalaya: "25.5788,91.8933",
-      Mizoram: "23.7271,92.7176",
-      Nagaland: "25.6700,94.1100",
-      Odisha: "20.2961,85.8245",
-      Punjab: "31.6340,74.8723",
-      Rajasthan: "26.9124,75.7873",
-      Sikkim: "27.3389,88.6065",
-      "Tamil Nadu": "13.0827,80.2707",
-      Telangana: "17.3850,78.4867",
-      Tripura: "23.8315,91.2868",
-      "Uttar Pradesh": "26.8467,80.9462",
-      Uttarakhand: "30.3165,78.0322",
-      "West Bengal": "22.5726,88.3639",
-      Delhi: "28.6139,77.2090",
-      Puducherry: "11.9416,79.8083",
-      "Jammu and Kashmir": "32.7333,74.8667",
-      Ladakh: "34.1526,77.5771",
-      Chandigarh: "30.7333,76.7794",
-      "Andaman and Nicobar Islands": "11.7401,92.6586",
-      "Daman and Diu": "20.1809,73.0169"
-    };
+    const cityData = [
+      { city: "Mumbai", state: "Maharashtra", coords: "19.0760,72.8777" },
+      { city: "Delhi", state: "Delhi", coords: "28.6139,77.2090" },
+      { city: "Bangalore", state: "Karnataka", coords: "12.9716,77.5946" },
+      { city: "Hyderabad", state: "Telangana", coords: "17.3850,78.4867" },
+      { city: "Ahmedabad", state: "Gujarat", coords: "23.0225,72.5714" },
+      { city: "Chennai", state: "Tamil Nadu", coords: "13.0827,80.2707" },
+      { city: "Kolkata", state: "West Bengal", coords: "22.5726,88.3639" },
+      { city: "Surat", state: "Gujarat", coords: "21.1702,72.8311" },
+      { city: "Pune", state: "Maharashtra", coords: "18.5204,73.8567" },
+      { city: "Jaipur", state: "Rajasthan", coords: "26.9124,75.7873" },
+      { city: "Lucknow", state: "Uttar Pradesh", coords: "26.8467,80.9462" },
+      { city: "Kanpur", state: "Uttar Pradesh", coords: "26.4499,80.3319" },
+      { city: "Nagpur", state: "Maharashtra", coords: "21.1458,79.0882" },
+      { city: "Indore", state: "Madhya Pradesh", coords: "22.7196,75.8577" },
+      { city: "Thane", state: "Maharashtra", coords: "19.2183,72.9781" },
+      { city: "Bhopal", state: "Madhya Pradesh", coords: "23.2599,77.4126" },
+      { city: "Visakhapatnam", state: "Andhra Pradesh", coords: "17.6868,83.2185" },
+      { city: "Pimpri-Chinchwad", state: "Maharashtra", coords: "18.6298,73.7997" },
+      { city: "Patna", state: "Bihar", coords: "25.5941,85.1376" },
+      { city: "Vadodara", state: "Gujarat", coords: "22.3072,73.1812" },
+      { city: "Ghaziabad", state: "Uttar Pradesh", coords: "28.6692,77.4538" },
+      { city: "Ludhiana", state: "Punjab", coords: "30.9010,75.8573" },
+      { city: "Agra", state: "Uttar Pradesh", coords: "27.1767,78.0081" },
+      { city: "Nashik", state: "Maharashtra", coords: "19.9975,73.7898" },
+      { city: "Faridabad", state: "Haryana", coords: "28.4089,77.3178" },
+      { city: "Meerut", state: "Uttar Pradesh", coords: "28.9845,77.7064" },
+      { city: "Rajkot", state: "Gujarat", coords: "22.3039,70.8022" },
+      { city: "Kalyan-Dombivli", state: "Maharashtra", coords: "19.2403,73.1305" },
+      { city: "Vasai-Virar", state: "Maharashtra", coords: "19.3919,72.8397" },
+      { city: "Varanasi", state: "Uttar Pradesh", coords: "25.3176,82.9739" },
+      { city: "Srinagar", state: "Jammu and Kashmir", coords: "34.0837,74.7973" },
+      { city: "Aurangabad", state: "Maharashtra", coords: "19.8762,75.3433" },
+      { city: "Dhanbad", state: "Jharkhand", coords: "23.7957,86.4304" },
+      { city: "Amritsar", state: "Punjab", coords: "31.6340,74.8723" },
+      { city: "Navi Mumbai", state: "Maharashtra", coords: "19.0330,73.0297" },
+      { city: "Allahabad", state: "Uttar Pradesh", coords: "25.4358,81.8463" },
+      { city: "Howrah", state: "West Bengal", coords: "22.5958,88.2636" },
+      { city: "Ranchi", state: "Jharkhand", coords: "23.3441,85.3096" },
+      { city: "Gwalior", state: "Madhya Pradesh", coords: "26.2183,78.1828" },
+      { city: "Jabalpur", state: "Madhya Pradesh", coords: "23.1815,79.9864" },
+      { city: "Coimbatore", state: "Tamil Nadu", coords: "11.0168,76.9558" },
+      { city: "Vijayawada", state: "Andhra Pradesh", coords: "16.5062,80.6480" },
+      { city: "Jodhpur", state: "Rajasthan", coords: "26.2389,73.0243" },
+      { city: "Madurai", state: "Tamil Nadu", coords: "9.9252,78.1198" },
+      { city: "Raipur", state: "Chhattisgarh", coords: "21.2514,81.6296" },
+      { city: "Kota", state: "Rajasthan", coords: "25.2138,75.8648" },
+      { city: "Guwahati", state: "Assam", coords: "26.1445,91.7362" },
+      { city: "Chandigarh", state: "Chandigarh", coords: "30.7333,76.7794" },
+      { city: "Solapur", state: "Maharashtra", coords: "17.6599,75.9064" },
+      { city: "Hubballi-Dharwad", state: "Karnataka", coords: "15.3647,75.1240" }
+    ];
+
+    // Populate State Dropdown
+    const filterStateSelect = document.getElementById("filterStateSelect");
+    const stateSelect = document.getElementById("stateSelect");
+    
+    if (filterStateSelect && stateSelect) {
+        const states = [...new Set(cityData.map(item => item.state))].sort();
+        states.forEach(state => {
+            const option = document.createElement("option");
+            option.value = state;
+            option.textContent = state;
+            filterStateSelect.appendChild(option);
+        });
+
+        // Function to populate cities based on selected state
+        function populateCities(selectedState) {
+            stateSelect.innerHTML = '<option value="" disabled selected>Select a City</option>';
+            const filteredCities = selectedState 
+                ? cityData.filter(item => item.state === selectedState)
+                : cityData;
+            
+            filteredCities.sort((a, b) => a.city.localeCompare(b.city)).forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.city;
+                option.textContent = item.city;
+                stateSelect.appendChild(option);
+            });
+        }
+
+        // Initial population
+        populateCities("");
+
+        // Event Listeners
+        filterStateSelect.addEventListener("change", (e) => {
+            const selectedState = e.target.value;
+            populateCities(selectedState);
+            filterAQITable(selectedState);
+        });
+
+        stateSelect.addEventListener("change", (e) => {
+            const cityName = e.target.value;
+            const cityInfo = cityData.find(item => item.city === cityName);
+            if (cityInfo) {
+                const [lat, lon] = cityInfo.coords.split(",");
+                window.location.href = `details.html?state=${encodeURIComponent(cityName)}&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`;
+            }
+        });
+    }
     const apiKey = "144f290761e76bb34156a51a004b52e6";
     const standardAQI = 50;
 
     // Fetch AQI for a given state using its coordinates
-    async function fetchStateAQI(state, coordinates) {
+    // Fetch AQI for a given state using its coordinates
+    async function fetchStateAQI(city, coordinates, state) {
       const [lat, lon] = coordinates.split(",");
       try {
         const response = await fetch(
@@ -121,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const aqi = Math.round(
           Math.max(calculateAQI(pm25, "pm25"), calculateAQI(pm10, "pm10"))
         );
-        return { state, aqi, timestamp: data.list[0].dt };
+        return { state: city, aqi, timestamp: data.list[0].dt, stateName: state };
       } catch (error) {
         console.error(`Error fetching data for ${state}:`, error);
         return { state, aqi: null, error: error.message };
@@ -135,8 +197,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("aqi-table").style.display = "none";
         document.getElementById("error").style.display = "none";
 
-        const promises = Object.entries(stateCoordinates).map(([state, coords]) =>
-          fetchStateAQI(state, coords)
+        const promises = cityData.map(item =>
+          fetchStateAQI(item.city, item.coords, item.state)
         );
         const results = await Promise.all(promises);
         const validResults = results.filter((r) => r.aqi !== null).sort((a, b) => b.aqi - a.aqi);
@@ -146,6 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const { status, color } = getAQIStatus(result.aqi);
           const aboveStandard = (result.aqi / standardAQI).toFixed(1);
           const row = document.createElement("tr");
+          row.setAttribute("data-state", result.stateName); // Add data attribute for filtering
           row.innerHTML = `
             <td class="rank-cell">${index + 1}.</td>
             <td>${result.state}</td>
@@ -183,85 +246,22 @@ document.addEventListener("DOMContentLoaded", () => {
         errorDiv.style.display = "block";
       }
     }
+
+    // Filter AQI Table based on selected state
+    function filterAQITable(selectedState) {
+        const rows = document.querySelectorAll("#aqi-data tr");
+        rows.forEach(row => {
+            const rowState = row.getAttribute("data-state");
+            if (!selectedState || rowState === selectedState) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
     window.addEventListener("load", loadAQIData);
 
    
-    // Tooltip and FusionCharts Map Setup
-
-    function showTooltip(text, x, y) {
-      const tooltip = document.getElementById("custom-tooltip");
-      if (tooltip) {
-        tooltip.innerHTML = text;
-        tooltip.style.left = x - tooltip.clientWidth / 2 + "px";
-        tooltip.style.top = y - tooltip.clientHeight - 5 + "px";
-        tooltip.classList.add("show");
-      }
-    }
-    function hideTooltip() {
-      const tooltip = document.getElementById("custom-tooltip");
-      if (tooltip) tooltip.classList.remove("show");
-    }
-    document.addEventListener("mousemove", (e) => {
-      const tooltip = document.getElementById("custom-tooltip");
-      if (tooltip && tooltip.classList.contains("show")) {
-        tooltip.style.left = e.pageX - tooltip.clientWidth / 2 + "px";
-        tooltip.style.top = e.pageY - tooltip.clientHeight - 5 + "px";
-      }
-    });
-    FusionCharts.ready(() => {
-      new FusionCharts({
-        type: "maps/india",
-        renderAt: "indian-map",
-        width: "100%",
-        height: "100%",
-        dataFormat: "json",
-        dataSource: {
-          chart: {
-            bgColor: "#121212",
-            canvasBgColor: "#121212",
-            borderColor: "#2f2f2f",
-            entityFillColor: "#ffffff",
-            entityBorderColor: "#222222",
-            showToolTip: "0",
-            caption: "",
-            subcaption: "",
-            showLegend: "0",
-            showLabels: "1",
-            showBorder: "1",
-            showCanvasBorder: "0",
-            legendBorderAlpha: "1",
-            nullEntityColor: "#888888"
-          },
-          colorrange: {
-            minvalue: "0",
-            code: "#ffffff",
-            gradient: "0"
-          },
-          data: []
-        },
-        events: {
-          entityRollOver: (evt, data) => {
-            document.getElementById(data.id)?.classList.add("custom-hover");
-            showTooltip(data.label, evt.clientX, evt.clientY);
-          },
-          entityRollOut: (evt, data) => {
-            document.getElementById(data.id)?.classList.remove("custom-hover");
-            hideTooltip();
-          },
-          entityClick: (evt, data) => {
-            const stateName = data.label;
-            if (stateCoordinates[stateName]) {
-              const [lat, lon] = stateCoordinates[stateName].split(",");
-              window.location.href = `details.html?state=${encodeURIComponent(
-                stateName
-              )}&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}`;
-            } else {
-              alert("Coordinates not found for " + stateName);
-            }
-          }
-        }
-      }).render();
-    });
   }
 });
 
