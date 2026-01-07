@@ -1,0 +1,90 @@
+ /* Global Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #030712; 
+      color: #e0e0e0;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }
+    .container-info {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 100px auto;  
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    header {
+      display: flex;               
+      justify-content: space-between; 
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    p {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    h3 {
+      font-size: 22px;
+      font-weight: 500;
+      border-bottom: 1px solid #444;
+      padding-bottom: 6px;
+      margin: 24px 0 12px;
+    }
+    ul {
+      list-style-type: disc;
+      margin-left: 30px;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    ul li {
+      margin-bottom: 6px;
+    }
+    .calc-section p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    .formula {
+      background-color: #222;
+      border-left: 4px solid #61a0e2;
+      padding: 10px 16px;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 12px 0;
+      border-radius: 4px;
+    }
+    /* Scoped Anchor Tag Styles */
+    .container-info a {
+      color: #61a0e2;
+      text-decoration: none;
+      border-bottom: 1px dotted #007bff;
+      transition: color 0.3s ease;
+    }
+    .container-info a:hover {
+      color: #ffffff;
+    }
+    /* GitHub Button Styles */
+    .github-btn {
+      background-color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #000000 !important;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .github-btn svg {
+  fill: #000000;
+  margin-right: 8px;
+  width: 22px;
+  height: 22px;
+  transition: transform 1s ease-in;
+}
+
+.github-btn:hover {
+  background-color: #e3e3e3;
+  transform: scale(1.05);
+}

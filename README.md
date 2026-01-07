@@ -1,4 +1,5 @@
-#HackClub Project This is Software Version of it I want to Create A Hardware of it also this is an people awareness spreding project to aware people toward health harm causing by poor AQI  
+#HackClub flavortown Project This is Software Version of it I want to Create A Hardware of it also this is an people awareness spreding project to aware people toward health harm causing by poor AQI  
+
 # AQI-Lifespan Calculator
 
 ## Overview
@@ -50,6 +51,6 @@ Contributions are welcome! Fork the repository, make improvements, and submit a 
 
 ---
 ### Author
-Developed by [Tejas Mali](https://tejasmali.vercel.app). For questions or suggestions, feel free to reach out!
+Developed by [Tejas Mali](https://tejasmali.dev). For questions or suggestions, feel free to reach out!
 Contact info GIven in GIthub Profile Page
 
