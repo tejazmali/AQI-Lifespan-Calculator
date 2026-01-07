@@ -1,90 +1,491 @@
- /* Global Styles */
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #030712; 
-      color: #e0e0e0;
-      font-family: 'Roboto', sans-serif;
-      line-height: 1.6;
-    }
-    .container-info {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: 100px auto;  
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      position: relative;
-    }
-    header {
-      display: flex;               
-      justify-content: space-between; 
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    p {
-      font-size: 16px;
-      margin-bottom: 16px;
-    }
-    h3 {
-      font-size: 22px;
-      font-weight: 500;
-      border-bottom: 1px solid #444;
-      padding-bottom: 6px;
-      margin: 24px 0 12px;
-    }
-    ul {
-      list-style-type: disc;
-      margin-left: 30px;
-      font-size: 15px;
-      margin-bottom: 16px;
-    }
-    ul li {
-      margin-bottom: 6px;
-    }
-    .calc-section p {
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-    .formula {
-      background-color: #222;
-      border-left: 4px solid #61a0e2;
-      padding: 10px 16px;
-      font-family: 'Courier New', Courier, monospace;
-      margin: 12px 0;
-      border-radius: 4px;
-    }
-    /* Scoped Anchor Tag Styles */
-    .container-info a {
-      color: #61a0e2;
-      text-decoration: none;
-      border-bottom: 1px dotted #007bff;
-      transition: color 0.3s ease;
-    }
-    .container-info a:hover {
-      color: #ffffff;
-    }
-    /* GitHub Button Styles */
-    .github-btn {
-      background-color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 16px;
-      border-radius: 30px;
-      text-decoration: none;
-      color: #000000 !important;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-    .github-btn svg {
-  fill: #000000;
-  margin-right: 8px;
+/* ===================================================
+   INFO PAGE - PREMIUM DESIGN
+   Application Information & Documentation
+   ================================================== */
+
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 80px 0 0 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0a0e27 100%);
+  background-attachment: fixed;
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.8;
+}
+
+/* ===== ANIMATED PARTICLES BACKGROUND ===== */
+.particles-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particles-bg::before,
+.particles-bg::after {
+  content: '';
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.12), transparent);
+  animation: floatParticle 22s ease-in-out infinite;
+}
+
+.particles-bg::before {
+  top: 15%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.particles-bg::after {
+  bottom: 15%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.12), transparent);
+  animation-delay: 11s;
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(50px, -50px) scale(1.1); }
+  50% { transform: translate(-30px, 30px) scale(0.9); }
+  75% { transform: translate(30px, 50px) scale(1.05); }
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container-info {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto 80px;
+  padding: 50px 40px;
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(96, 165, 250, 0.1);
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== PAGE HEADER ===== */
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+  
+  animation: fadeInDown 0.8s ease-out 0.2s backwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  animation: gradientShift 5s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #94a3b8;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+/* ===== GITHUB BUTTON ===== */
+.github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  
+  background: linear-gradient(135deg, #ffffff, #f1f5f9);
+  border: 2px solid transparent;
+  border-radius: 30px;
+  
+  color: #0a0e27 !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  
+  animation: bounceIn 0.8s ease-out 0.4s backwards;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.github-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(96, 165, 250, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.github-btn:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+.github-btn svg {
+  fill: #0a0e27;
   width: 22px;
   height: 22px;
-  transition: transform 1s ease-in;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.github-btn span {
+  position: relative;
+  z-index: 1;
 }
 
 .github-btn:hover {
-  background-color: #e3e3e3;
-  transform: scale(1.05);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+  border-color: rgba(96, 165, 250, 0.5);
+}
+
+.github-btn:hover svg {
+  transform: rotate(360deg) scale(1.1);
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
+
+main > p {
+  font-size: 17px;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+  line-height: 1.8;
+  animation: fadeInLeft 0.6s ease-out 0.5s backwards;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== SECTIONS ===== */
+section {
+  margin-bottom: 40px;
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+section:nth-of-type(1) { animation-delay: 0.6s; }
+section:nth-of-type(2) { animation-delay: 0.7s; }
+section:nth-of-type(3) { animation-delay: 0.8s; }
+
+h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #60a5fa;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(96, 165, 250, 0.3);
+  letter-spacing: 0.05em;
+  
+  position: relative;
+  animation: fadeInRight 0.6s ease-out backwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+h3::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  border-radius: 2px;
+}
+
+section p {
+  font-size: 16px;
+  color: #cbd5e1;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+/* ===== LISTS ===== */
+ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+ul li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #cbd5e1;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #60a5fa;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+ul li:hover {
+  transform: translateX(10px);
+  color: #60a5fa;
+}
+
+ul li:hover::before {
+  transform: translateX(-5px);
+  color: #a78bfa;
+}
+
+/* ===== LINKS ===== */
+.container-info a:not(.github-btn) {
+  color: #60a5fa;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(96, 165, 250, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 500;
+}
+
+.container-info a:not(.github-btn)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.container-info a:not(.github-btn):hover {
+  color: #a78bfa;
+  border-bottom-color: transparent;
+}
+
+.container-info a:not(.github-btn):hover::after {
+  width: 100%;
+}
+
+/* ===== CALCULATIONS SECTION ===== */
+.calc-section {
+  background: rgba(30, 41, 59, 0.4);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  margin-top: 20px;
+}
+
+.calc-section p {
+  font-size: 15px;
+  color: #cbd5e1;
+  margin-bottom: 15px;
+}
+
+.calc-section strong {
+  color: #60a5fa;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.calc-section em {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.calc-section sub {
+  color: #a78bfa;
+}
+
+/* ===== FORMULA BOX ===== */
+.formula {
+  background: rgba(15, 23, 42, 0.8);
+  border-left: 4px solid #60a5fa;
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 20px 0;
+  
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+  color: #f1f5f9;
+  
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  animation: slideInLeft 0.5s ease-out backwards;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.formula:hover {
+  transform: translateX(8px);
+  background: rgba(15, 23, 42, 0.95);
+  border-left-color: #a78bfa;
+  box-shadow: 
+    -5px 0 20px rgba(96, 165, 250, 0.3),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  body {
+    padding: 70px 0 0 0;
+  }
+  
+  .container-info {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+  
+  .info-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .github-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  h3 {
+    font-size: 20px;
+  }
+  
+  .calc-section {
+    padding: 20px 15px;
+  }
+  
+  .formula {
+    padding: 15px 18px;
+    font-size: 14px;
+  }
 }

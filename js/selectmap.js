@@ -213,10 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <td class="rank-cell">${index + 1}.</td>
             <td>${result.state}</td>
             <td class="aqi-cell">
-              <div class="aqi-gauge">
-                ${createGaugeSVG(result.aqi, color)}
-                <div class="aqi-value">${result.aqi}</div>
-              </div>
+              ${createAQIVisual(result.aqi, color, status)}
             </td>
             <td class="status-cell">
               <span class="status ${status.toLowerCase()}">${status}</span>
@@ -294,29 +291,96 @@ function getAQIStatus(aqi) {
   return { status: "Good", color: "#66bb6a" };
 }
 
-// Generates an SVG gauge for visualizing the AQI value.
-function createGaugeSVG(aqi, color) {
-  const radius = 40;
-  const strokeWidth = 8;
+// Creates a semi-circular gauge with color-coded AQI visualization
+function createAQIVisual(aqi, color, status) {
+  // Determine color based on AQI ranges
+  let gaugeColor;
+  if (aqi < 50) {
+    gaugeColor = '#4ade80'; // Bright green
+  } else if (aqi < 100) {
+    gaugeColor = '#22c55e'; // Dark green
+  } else if (aqi < 150) {
+    gaugeColor = '#fbbf24'; // Yellow
+  } else {
+    gaugeColor = '#ef4444'; // Red
+  }
+  
+  const radius = 30;
+  const strokeWidth = 6;
   const normalizedAQI = Math.min(aqi, 500) / 500;
-  const angle = normalizedAQI * 180;
-  const startAngle = -90;
-  const endAngle = startAngle + angle;
-  const endRad = (endAngle * Math.PI) / 180;
-  const x = radius + radius * Math.cos(endRad);
-  const y = radius + radius * Math.sin(endRad);
+  const angle = normalizedAQI * 180; // Semi-circle (180 degrees)
+  
+  // Center positioned so arc forms U-shape at bottom
+  const centerX = 40;
+  const centerY = 10;
+  
+  // Start from bottom-left (180°) and sweep clockwise to fill the arc
+  // In SVG, angles: 180° = left, 90° = top, 0° = right
+  const startAngle = 180; // Bottom-left
+  const endAngle = 0; // Bottom-right
+  
+  // Calculate the actual end angle based on AQI percentage
+  const currentEndAngle = startAngle - angle; // Sweep from 180° towards 0°
+  
+  // Convert to radians
+  const startRad = (startAngle * Math.PI) / 180;
+  const endRad = (currentEndAngle * Math.PI) / 180;
+  
+  // Calculate start and end points
+  const x1 = centerX + radius * Math.cos(startRad);
+  const y1 = centerY - radius * Math.sin(startRad);
+  
+  const x2 = centerX + radius * Math.cos(endRad);
+  const y2 = centerY - radius * Math.sin(endRad);
+  
+  // Background arc end point (full semi-circle)
+  const bgEndRad = (endAngle * Math.PI) / 180;
+  const bgX2 = centerX + radius * Math.cos(bgEndRad);
+  const bgY2 = centerY - radius * Math.sin(bgEndRad);
+  
   const largeArcFlag = angle > 180 ? 1 : 0;
-  const path = `M ${radius} ${strokeWidth / 2} A ${radius - strokeWidth / 2} ${
-    radius - strokeWidth / 2
-  } 0 ${largeArcFlag} 1 ${x} ${y}`;
-
+  
+  // Create the arc paths
+  const arcPath = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`;
+  const backgroundPath = `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${bgX2} ${bgY2}`;
+  
   return `
-    <svg width="80" height="40" viewBox="0 0 80 40">
-      <path d="M ${radius} ${strokeWidth / 2} A ${radius - strokeWidth / 2} ${
-    radius - strokeWidth / 2
-  } 0 0 1 ${radius * 2 - strokeWidth / 2} ${radius}" 
-            stroke="#333" stroke-width="${strokeWidth}" fill="none" />
-      <path d="${path}" stroke="${color}" stroke-width="${strokeWidth}" fill="none" stroke-linecap="round" />
-    </svg>
+    <div class="aqi-visual">
+      <svg width="80" height="50" viewBox="0 0 70 40" style="overflow: visible;">
+        <!-- Background arc (gray) -->
+        <path 
+          d="${backgroundPath}" 
+          stroke="rgba(71, 85, 105, 0.2)" 
+          stroke-width="${strokeWidth}" 
+          fill="none" 
+          stroke-linecap="round" />
+        
+        <!-- Colored progress arc -->
+        <path 
+          d="${arcPath}" 
+          stroke="${gaugeColor}" 
+          stroke-width="${strokeWidth}" 
+          fill="none" 
+          stroke-linecap="round"
+          style="
+            filter: drop-shadow(0 0 6px ${gaugeColor}80);
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawGauge 1s ease-out forwards;
+          " />
+      </svg>
+      
+      <div class="aqi-number" style="color: ${gaugeColor};">
+        ${aqi}
+      </div>
+      
+      <style>
+        @keyframes drawGauge {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+      </style>
+    </div>
   `;
 }

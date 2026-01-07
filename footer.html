@@ -1,30 +1,289 @@
-<footer>
-    <p>Design by Tejas Mali ❤️ </p>
-  </footer>
-  <style>
-    footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 20px 0;
-      position: relative;
-      bottom: 0;
-      width: 100%;
+<!-- Premium Fonts for Footer -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+<footer class="premium-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3 class="footer-logo">Airtox</h3>
+        <p class="footer-tagline">Breathe Aware, Live Better</p>
+      </div>
       
-      background-color: #111827;
-      border-top: 1px solid #202c47d7;
+      <div class="footer-credits">
+        <p class="credit-line">
+          <span class="credit-label">Design by</span>
+          <span class="credit-name">Tejas Mali</span>
+        </p>
+        <p class="credit-line contributor">
+          <span class="credit-label">&</span>
+          <span class="credit-name">Shivansh Pandey</span>
+          <span class="contributor-badge">Contributor</span>
+        </p>
+      </div>
+    </div>
+    
+    <div class="footer-divider"></div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 Airtox. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://github.com/tejazmali/AQI-Lifespan-Calculator" class="social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
 
+<style>
+/* ===== PREMIUM FOOTER STYLES ===== */
+.premium-footer {
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 2px solid rgba(96, 165, 250, 0.2);
+  color: #ffffff;
+  padding: 50px 0 30px;
+  margin-top: 80px;
+  position: relative;
+  overflow: hidden;
   
-    }
-    footer p {
-      margin: 0;
-      font-size: 14px;
-    }
-    #detail-page{
-      footer{margin-top: 340px;
+  animation: fadeInUp 0.8s ease-out;
+}
 
-      } 
-       
-    }
+.premium-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #60a5fa, #a78bfa, #ec4899, transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
 
-  </style>
+@keyframes shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+/* Brand Section */
+.footer-brand {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin: 0 0 10px 0;
+  
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  animation: gradientShift 5s ease infinite;
+}
+
+.footer-tagline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 300;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* Credits Section */
+.footer-credits {
+  flex: 1;
+  min-width: 250px;
+  text-align: right;
+}
+
+.credit-line {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 8px 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.credit-label {
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.credit-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #60a5fa;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.credit-name:hover {
+  color: #a78bfa;
+  transform: translateX(-3px);
+}
+
+.credit-name::after {
+  content: '❤️';
+  position: absolute;
+  right: -25px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.credit-line:first-child .credit-name:hover::after {
+  opacity: 1;
+}
+
+.contributor {
+  margin-top: 4px;
+}
+
+.contributor-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(96, 165, 250, 0.2);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #60a5fa;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 6px rgba(96, 165, 250, 0);
+  }
+}
+
+/* Divider */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.3), transparent);
+  margin: 30px 0;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.copyright {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(96, 165, 250, 0.1);
+  border: 2px solid rgba(96, 165, 250, 0.3);
+  color: #60a5fa;
+  
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-link:hover {
+  background: #60a5fa;
+  border-color: #60a5fa;
+  color: #ffffff;
+  transform: translateY(-3px) rotate(360deg);
+  box-shadow: 0 5px 20px rgba(96, 165, 250, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .premium-footer {
+    padding: 40px 0 20px;
+  }
+  
+  .footer-container {
+    padding: 0 20px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
+  
+  .footer-credits {
+    text-align: left;
+  }
+  
+  .credit-line {
+    justify-content: flex-start;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .footer-logo {
+    font-size: 26px;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

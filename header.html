@@ -1,65 +1,230 @@
+<!-- Premium Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-<header class="header">
-    <div class="container">
-      <a href="/"><div class="title">
-            <h1>Airtox</h1>
-        </div></a>
-        
-        <a href="/info.html"><span class="material-symbols-outlined info">
-            info
-            </span></a>
+<header class="premium-header">
+  <div class="header-container">
+    <a href="index.html" class="logo-link">
+      <div class="logo">
+        <h1>Airtox</h1>
+        <div class="logo-underline"></div>
+      </div>
+    </a>
+    
+    <nav class="header-nav">
+      <a href="info.html" class="info-btn">
+        <span class="material-symbols-outlined">info</span>
+        <span class="info-text">Info</span>
+      </a>
+    </nav>
+  </div>
 </header>
 
-<style>.header {
-    background-color: #111827;
-    border-bottom: 1px solid #202c47d7;
-    z-index: 10000;
-    width: 100%;
-    background-color:#111827d7;
-    backdrop-filter: blur(10px);
-    top: 0;
-    position: fixed;
-    transition: top 0.3s;
-a{
-  text-decoration: none ;
+<style>
+/* ===== PREMIUM HEADER STYLES ===== */
+.premium-header {
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(96, 165, 250, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  
+  animation: slideDown 0.6s ease-out;
+  transition: all 0.3s ease;
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.premium-header::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899);
+  transition: width 0.3s ease;
+}
+
+.premium-header:hover::before {
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+/* Logo Styles */
+.logo-link {
+  text-decoration: none;
+  display: block;
+}
+
+.logo {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+}
+
+.logo h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin: 0;
+  
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  
+  animation: gradientShift 5s ease infinite, textGlow 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes textGlow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.5));
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.8));
+  }
+}
+
+.logo-underline {
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  margin-top: 4px;
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo:hover .logo-underline {
+  width: 100%;
+}
+
+/* Navigation Styles */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.info-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  
+  background: rgba(96, 165, 250, 0.1);
+  border: 2px solid rgba(96, 165, 250, 0.3);
+  border-radius: 25px;
+  
+  color: #60a5fa;
+  text-decoration: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(96, 165, 250, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.info-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.info-btn:hover {
+  background: rgba(96, 165, 250, 0.2);
+  border-color: #60a5fa;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(96, 165, 250, 0.4);
+}
+
+.info-btn .material-symbols-outlined {
+  font-size: 20px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.info-btn:hover .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+.info-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 20px;
+    height: 60px;
   }
   
-  .container {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .logo h1 {
+    font-size: 22px;
   }
-
   
-  .title {
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    margin-left: 10px;
-    text-align: start;
-    
+  .info-text {
+    display: none;
   }
-  .info{
- 
-    margin-right: 10px;
-    color: #bebebe;
-    cursor: pointer;
-    padding: 10px 10px;
-    border-radius: 10px;
-    transition: color 0.3s ease;
-  }
-  .info:hover{
-    color: #cbcbcb;
-    background-color: #bebebe34;
-    
-    
-
-  }
-
   
-    </style>
+  .info-btn {
+    padding: 10px 12px;
+  }
+}
+</style>
