@@ -4,15 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Airtox | Info</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="shortcut icon" href="/img/smoking-solid.svg" type="image/x-icon">
-  <link rel="stylesheet" href="/css/info.css">
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="img/smoking-solid.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/info.css">
 </head>
 <body>
+  <!-- Animated Background -->
+  <div class="particles-bg"></div>
+  
   <div id="header"></div>
+  
   <div class="container-info">
-    <header>
-      <h1>About This Application</h1>
+    <header class="info-header">
+      <div class="header-text">
+        <h1 class="page-title">About This Application</h1>
+        <p class="page-subtitle">Understanding Air Quality & Health Impact</p>
+      </div>
       <a
         class="github-btn"
         href="https://github.com/tejazmali/AQI-Project"
@@ -30,7 +41,7 @@
             0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
           </path>
         </svg>
-        GitHub
+        <span>View on GitHub</span>
       </a>
     </header>
     <main>
@@ -60,6 +71,16 @@
         </p>
       </section>
       <section>
+        <h3>Contributors</h3>
+        <p>
+          This project was designed and developed by:
+        </p>
+        <ul>
+          <li><strong>Tejas Mali</strong> - Designer & Lead Developer</li>
+          <li><strong>Shivansh Pandey</strong> - Contributor</li>
+        </ul>
+      </section>
+      <section>
         <h3>Calculations</h3>
         <div class="calc-section">
           <p>
@@ -83,8 +104,30 @@
         </div>
       </section>
     </main>
-    <script src="/js/script.js"></script>
   </div>
+  
   <div id="footer"></div>
+  
+  <!-- Load header and footer -->
+  <script>
+    
+    // Load header
+    fetch('/AQI-Lifespan-Calculator/header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+    
+
+    // Load footer
+    fetch('/AQI-Lifespan-Calculator/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>

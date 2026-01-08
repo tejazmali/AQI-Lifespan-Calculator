@@ -3,36 +3,45 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Airtox | Map </title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Inter:400,300" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Airtox | Select City</title>
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <!-- DotLottie Player for loader animation -->
   <script type="module" src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
-  <link rel="stylesheet" href="/css/selectmap.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="/img/smoking-solid.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/selectmap.css">
+  <link rel="shortcut icon" href="img/smoking-solid.svg" type="image/x-icon">
 </head>
 
 <body>
   <!-- Loader Overlay -->
   <div id="loader">
-    <dotlottie-player src="/img/cigarate.lottie" background="transparent" speed="1" style="width:300px; height:300px;"
+    <dotlottie-player src="img/cigarate.lottie" background="transparent" speed="1" style="width:300px; height:300px;"
       loop autoplay></dotlottie-player>
   </div>
 
   <div id="header"></div>
+  
+  <div class="page-header">
+    <h1 class="page-title">Select a City</h1>
+    <p class="page-subtitle">Select a state and then a city to view air pollution data.</p>
+  </div>
+  
   <div class="map-container">
-    <h3>Select a City</h3>
-    <p>Select a state and then a city to view air pollution data.</p>
-    <div class="select-container" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-      <select id="filterStateSelect"
-        style="padding: 10px; border-radius: 5px; background-color: #1f2937; color: white; border: 1px solid #374151; width: 100%; max-width: 300px;">
-        <option value="" selected>All States</option>
-      </select>
-      <select id="stateSelect"
-        style="padding: 10px; border-radius: 5px; background-color: #1f2937; color: white; border: 1px solid #374151; width: 100%; max-width: 300px;">
-        <option value="" disabled selected>Select a City</option>
-      </select>
+    <div class="select-container">
+      <div class="select-wrapper">
+        <select id="filterStateSelect" class="premium-select">
+          <option value="" selected>All States</option>
+        </select>
+      </div>
+      <div class="select-wrapper">
+        <select id="stateSelect" class="premium-select">
+          <option value="" disabled selected>Select a City</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -40,8 +49,14 @@
   <div id="custom-tooltip"></div>
 
   <div class="container-aqilist">
-    <h2>India Air Quality Index Dashboard</h2>
-    <div id="loading" class="loading">Loading air quality data...</div>
+    <div class="dashboard-header">
+      <h2 class="dashboard-title">India Air Quality Index Dashboard</h2>
+      <div class="dashboard-subtitle">Real-time air quality monitoring across Indian cities</div>
+    </div>
+    <div id="loading" class="loading">
+      <div class="loading-spinner"></div>
+      <span>Loading air quality data...</span>
+    </div>
     <div id="error" class="error" style="display: none;"></div>
     <table id="aqi-table" style="display: none;">
       <thead>
@@ -66,9 +81,38 @@
   </div>
   <div id="footer"></div>
 
+  <!-- Load header and footer -->
+  <script>
+    // Load header
+    fetch('/AQI-Lifespan-Calculator/header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
 
-  <script src="/js/selectmap.js"></script>
-  <script src="/js/script.js"></script>
+    // Load footer
+    fetch('/AQI-Lifespan-Calculator/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+
+    // Hide loader after page loads
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 1000);
+      }, 1000);
+    });
+  </script>
+
+  <script src="js/selectmap.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>
