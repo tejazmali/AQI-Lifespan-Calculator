@@ -1,68 +1,214 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Loader fade-out
-  
+  /* ==========================
+     GLOBALS
+  ========================== */
+
+  let currentMap = null;
+const stateMapIds = {
+  "Andhra Pradesh": "maps/andhrapradesh",
+  "Arunachal Pradesh": "maps/arunachalpradesh",
+  Assam: "maps/assam",
+  Bihar: "maps/bihar",
+  Chhattisgarh: "maps/chhattisgarh",
+  Goa: "maps/goa",
+  Gujarat: "maps/gujarat",
+  Haryana: "maps/haryana",
+  "Himachal Pradesh": "maps/himachalpradesh",
+  Jharkhand: "maps/jharkhand",
+  Karnataka: "maps/karnataka",
+  Kerala: "maps/kerala",
+  "Madhya Pradesh": "maps/madhyapradesh",
+  Maharashtra: "maps/maharashtra",
+  Manipur: "maps/manipur",
+  Meghalaya: "maps/meghalaya",
+  Mizoram: "maps/mizoram",
+  Nagaland: "maps/nagaland",
+  Odisha: "maps/odisha",
+  Punjab: "maps/punjab",
+  Rajasthan: "maps/rajasthan",
+  Sikkim: "maps/sikkim",
+  "Tamil Nadu": "maps/tamilnadu",
+  Telangana: "maps/telangana",
+  Tripura: "maps/tripura",
+  "Uttar Pradesh": "maps/uttarpradesh",
+  Uttarakhand: "maps/uttarakhand",
+  "West Bengal": "maps/westbengal",
+
+  // Union Territories
+  Delhi: "maps/delhi",
+  Chandigarh: "maps/chandigarh",
+  Puducherry: "maps/puducherry",
+  Ladakh: "maps/ladakh",
+  "Jammu and Kashmir": "maps/jammuandkashmir",
+  "Andaman and Nicobar Islands": "maps/andamanandnicobar",
+  "Dadra and Nagar Haveli and Daman and Diu": "maps/dnhdd"
+};
+
+
+const stateCoordinates = {
+  "Andhra Pradesh": "16.5062,80.6480",        // Vijayawada
+  "Arunachal Pradesh": "27.0844,93.6053",    // Itanagar
+  Assam: "26.1445,91.7362",                  // Guwahati
+  Bihar: "25.5941,85.1376",                  // Patna
+  Chhattisgarh: "21.2514,81.6296",            // Raipur
+  Goa: "15.4909,73.8278",                     // Panaji
+  Gujarat: "23.0225,72.5714",                 // Ahmedabad
+  Haryana: "28.4595,77.0266",                 // Gurugram
+  "Himachal Pradesh": "31.1048,77.1734",      // Shimla
+  Jharkhand: "23.3441,85.3096",                // Ranchi
+  Karnataka: "12.9716,77.5946",                // Bengaluru
+  Kerala: "8.5241,76.9366",                    // Thiruvananthapuram
+  "Madhya Pradesh": "23.2599,77.4126",        // Bhopal
+  Maharashtra: "19.0760,72.8777",              // Mumbai
+  Manipur: "24.8170,93.9368",                  // Imphal
+  Meghalaya: "25.5788,91.8933",                // Shillong
+  Mizoram: "23.7271,92.7176",                  // Aizawl
+  Nagaland: "25.6700,94.1100",                 // Kohima
+  Odisha: "20.2961,85.8245",                   // Bhubaneswar
+  Punjab: "31.6340,74.8723",                   // Amritsar
+  Rajasthan: "26.9124,75.7873",                // Jaipur
+  Sikkim: "27.3389,88.6065",                   // Gangtok
+  "Tamil Nadu": "13.0827,80.2707",             // Chennai
+  Telangana: "17.3850,78.4867",                // Hyderabad
+  Tripura: "23.8315,91.2868",                  // Agartala
+  "Uttar Pradesh": "26.8467,80.9462",          // Lucknow
+  Uttarakhand: "30.3165,78.0322",              // Dehradun
+  "West Bengal": "22.5726,88.3639",            // Kolkata
+
+  // Union Territories
+  Delhi: "28.6139,77.2090",
+  Chandigarh: "30.7333,76.7794",
+  Puducherry: "11.9416,79.8083",
+  Ladakh: "34.1526,77.5771",                   // Leh
+  "Jammu and Kashmir": "34.0837,74.7973",      // Srinagar
+  "Andaman and Nicobar Islands": "11.7401,92.6586",
+  "Dadra and Nagar Haveli and Daman and Diu": "20.3974,72.8328"
+};
+
+
+  /* ==========================
+     TOOLTIP
+  ========================== */
+
+  function showTooltip(text, x, y) {
+    const tooltip = document.getElementById("custom-tooltip");
+    tooltip.textContent = text;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y - 30 + "px";
+    tooltip.classList.add("show");
+  }
+
+  function hideTooltip() {
+    document.getElementById("custom-tooltip").classList.remove("show");
+  }
+
+  /* ==========================
+     MAP RENDERERS
+  ========================== */
+
+  function renderIndiaMap() {
+    document.getElementById("backToIndia").style.display = "none";
+
+    if (currentMap) currentMap.dispose();
+
+    currentMap = new FusionCharts({
+      type: "maps/india",
+      renderAt: "indian-map",
+      width: "100%",
+      height: "520",
+      dataFormat: "json",
+      dataSource: {
+        chart: {
+          bgColor: "#121212",
+          entityFillColor: "#1f2937",
+          entityBorderColor: "#374151",
+          hoverColor: "#22c55e",
+        showLabels: "0",
+  showToolTip: "1",
+  showHoverEffect: "1",
+  useHoverColor: "1"
+        },
+        data: []
+      },
+      events: {
+        entityRollOver: (e, d) => showTooltip(d.label, e.clientX, e.clientY),
+        entityRollOut: hideTooltip,
+        entityClick: (_, data) => {
+          if (stateMapIds[data.label]) {
+            renderStateMap(data.label);
+          }
+        }
+      }
+    });
+
+    currentMap.render();
+  }
+
+  function renderStateMap(stateName) {
+    document.getElementById("backToIndia").style.display = "inline-block";
+
+    if (currentMap) currentMap.dispose();
+
+    currentMap = new FusionCharts({
+      type: stateMapIds[stateName],
+      renderAt: "indian-map",
+      width: "100%",
+      height: "520",
+      dataFormat: "json",
+      dataSource: {
+    chart: {
+  bgColor: "#121212",
+  entityFillColor: "#111827",
+  entityBorderColor: "#374151",
+  hoverColor: "#3b82f6",
+
+  showToolTip: "1",
+  showHoverEffect: "0",
+  useHoverColor: "1",
+  showLabels: "1"
+}
+,
+        data: []
+      },
+      events: {
+        entityRollOver: (e, d) => showTooltip(d.label, e.clientX, e.clientY),
+        entityRollOut: hideTooltip,
+        entityClick: (_, data) => {
+          const city = data.label;
+          const [lat, lon] = stateCoordinates[stateName].split(",");
+          window.location.href =
+            `details.html?state=${encodeURIComponent(city)}&lat=${lat}&lon=${lon}`;
+        }
+      }
+    });
+
+    currentMap.render();
+  }
+
+  /* ==========================
+     BACK BUTTON
+  ========================== */
+
+  document.getElementById("backToIndia").addEventListener("click", renderIndiaMap);
+
+  /* ==========================
+     INIT
+  ========================== */
+
+  FusionCharts.ready(renderIndiaMap);
+
+  /* ==========================
+     LOADER
+  ========================== */
+
   setTimeout(() => {
     const loader = document.getElementById("loader");
     loader.style.opacity = "0";
-    setTimeout(() => (loader.style.display = "none"), 800);
+    setTimeout(() => loader.style.display = "none", 800);
   }, 2000);
 
 
-  // Details Page: AQI Calculation
-
-  const calcBtn = document.getElementById("calculateBtn");
-  if (calcBtn) {
-    const params = new URLSearchParams(window.location.search);
-    const stateName = params.get("state") || "Unknown State";
-    const lat = params.get("lat");
-    const lon = params.get("lon");
-    document.getElementById("stateHeading").innerText = stateName;
-
-    calcBtn.addEventListener("click", () => {
-      const age = parseFloat(document.getElementById("ageInput").value);
-      const yearsLived = parseFloat(document.getElementById("yearsLived").value);
-
-      if (isNaN(age) || age < 0 || isNaN(yearsLived) || yearsLived < 0) {
-        return alert("Please enter valid age and years lived.");
-      }
-      if (!lat || !lon) return alert("Coordinates not found!");
-
-      const apiKey = "144f290761e76bb34156a51a004b52e6";
-      const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-      fetch(url)
-        .then((response) => {
-          if (!response.ok) throw new Error("Network response not ok");
-          return response.json();
-        })
-        .then((data) => {
-          const comp = data.list[0].components;
-          const pm25 = comp.pm2_5;
-          const pm10 = comp.pm10;
-
-          // Calculate AQI for both PM2.5 and PM10 using helper function
-          const aqi_pm25 = calculateAQI(pm25, "pm25");
-          const aqi_pm10 = calculateAQI(pm10, "pm10");
-
-          const overallAQI = Math.round(Math.max(aqi_pm25, aqi_pm10));
-
-          // Additional values (if needed) can be added to results
-          const results = {
-            stateName,
-            aqi: overallAQI,
-            pm25,
-            pm10,
-            rawData: data
-          };
-
-          window.location.href =
-            "results.html?data=" + encodeURIComponent(JSON.stringify(results));
-        })
-        .catch((error) => alert("Error: " + error.message));
-    });
-  }
-  // Dashboard Page: AQI Data & Map
 
   const aqiTableElem = document.getElementById("aqi-data");
   if (aqiTableElem) {
@@ -320,3 +466,4 @@ function createGaugeSVG(aqi, color) {
     </svg>
   `;
 }
+
